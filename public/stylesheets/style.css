@@ -1,0 +1,96 @@
+body{
+	width:100%;
+	min-height:100%;
+	background:#f7f5ee;
+}
+.marbot10{
+	margin-bottom: 10px;
+}
+#nav-main .navbar-brand{
+	color:#fff;
+	font-family: 'Pirata One', cursive;
+	font-weight: bold;
+
+}
+.header-solved-date{
+	color:#fff;
+	font-size:12px;
+}
+#footer-main .navbar{
+	box-shadow:none;
+	-moz-box-shadow:none;
+	-webkit-box-shadow:none;
+}
+#footer-main li{
+	text-align: center;
+}
+#nav-main li > a,#footer-main li > a{
+	color:#fff;
+}
+#nav-main,#content .orange-bg,#footer-main footer{
+	background-color:#ea5a1e;
+}
+.member-social-media a.member-social-media-icon{
+	display:inline-block;
+	color:initial;
+
+}
+.link{
+	cursor: pointer;
+	color:#3b5998;
+	font-weight: bold;
+}
+.team-member-info{
+	margin-bottom: 10px;
+	padding-bottom: 10px;
+}
+.member-facebook :hover{
+	color: #2196f3;
+}
+.member-twitter :hover{
+	color: #00B7FF;
+}
+.member-google-plus :hover{
+	color: orange;
+}
+.post-text{
+	color:#191919;
+	font-size: 12px;
+}
+.post-ts{
+	color:#999;
+}
+.post-submit{
+	border-top: 1px solid #ddd;
+	border-left: 1px solid #ddd;
+	border-right: 1px solid #ddd;
+}
+#footer-main{
+	background-color: #ea5a1e;
+	color:#fff;
+}
+.footer a{
+	color:#fff;
+}
+#labelpassCodeStep4{
+	margin-top: 5px;
+}
+@media (max-width: 767px) {
+	#nav-main .navbar-brand{
+		display:block;
+		width:100%;
+		text-align: center;
+		font-size: 40px;
+	}
+	#nav-main .nav-item{
+		box-sizing:border-box;
+		width:20%;
+		float:left;
+		display:block;
+	}
+  .member-name h4{
+  	margin-top:0px;
+  	margin-bottom:0px;
+  	font-size: 16px;
+  }
+}

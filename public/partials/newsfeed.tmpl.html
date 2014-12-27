@@ -1,0 +1,26 @@
+            <!--Feed section this will not change between views-->
+            <div ng-controller="NewsFeedController" class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">News feed</h3> </div>
+                    <div class="panel-body">
+                        <div class="post-list">
+                            <div ng-repeat="feed in publicFeeds" class="row feed-post">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> <a class="link poster-name" ng-bind="feed.poster"></a><span>-</span><a class="link poster-team" ng-bind="feed.teamName"></a>:<span class="post-text" ng-bind="feed.post"></span>
+                                    <div class="post-ts" ng-bind="feed.postTS"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="post-submit">
+                            <form class="form" ng-submit="postNewMessage()">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                        <input ng-model="newMessage.post" type="text" class="form-control" id="formPostInput" placeholder="Enter your post" /> </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Feed section this will not change between views-->

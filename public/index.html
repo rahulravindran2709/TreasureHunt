@@ -3,7 +3,7 @@
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!-->
-<html class="no-js">
+<html class="no-js" ng-app="TreasureHunt">
 <!--<![endif]-->
 
 <head>
@@ -14,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Latest compiled and minified CSS -->
     <!-- Optional theme -->
-    <link href='http://fonts.googleapis.com/css?family=Pirata+One' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Pirata+One' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
     <link rel="stylesheet" href="stylesheets/bootstrap/bootstrap-theme.min.css">
     <link rel="stylesheet" href="stylesheets/font-awesome/font-awesome.css">
@@ -127,36 +127,7 @@
                     </div>
                 </div>
             </div>
-            <!--Feed section this will not change between views-->
-            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">News feed</h3> </div>
-                    <div class="panel-body">
-                        <div class="post-list">
-                            <div class="row feed-post">
-                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> <a class="link poster-name">Rahul Ravindran</a><span>-</span><a class="link poster-team">Bucaneers</a>:<span class="post-text">This is sparta</span>
-                                    <div class="post-ts">5 minutes ago</div>
-                                </div>
-                            </div>
-                            <div class="row feed-post">
-                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> <a class="link poster-name">Abdul Jaleel</a><span>-</span><a class="link poster-team">Bucaneers</a>:<span class="post-text">Poda panni</span>
-                                    <div class="post-ts">1 minute ago</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="post-submit">
-                            <form class="form">
-                                <div class="row">
-                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                        <input type="text" class="form-control" id="formPostInput" placeholder="Enter your post" /> </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--Feed section this will not change between views-->
+            <ng-include src="'partials/newsfeed.tmpl.html'"></ng-include>
             <!--Clues section-->
             <div id="clues-content" class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
                 <div class="panel panel-warning">
@@ -440,9 +411,17 @@ var options = {
 
 // All you need to do is pass your configuration as third parameter to the chart function
 new Chartist.Line('.ct-chart', data, options);
-
     </script>
     <script src="javascripts/vendor/holder/holder.js"></script>
+    <script src="javascripts/vendor/faye/faye-browser.js"></script>
+    <script src="javascripts/vendor/jquery/jquery-1.11.1.js"></script>
+    <script src="javascripts/vendor/angular/angular.js"></script>
+    <script src="javascripts/vendor/angular/angular-route.js"></script>
+    <script src="javascripts/mvc/app.js"></script>
+    <script src="javascripts/mvc/services/FayeClientFactory.js"></script>
+    <script src="javascripts/mvc/services/NewsFeedService.js"></script>
+    <script src="javascripts/mvc/controllers/NewsFeedController.js"></script>
+    
 </body>
 
 </html>

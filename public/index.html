@@ -315,7 +315,40 @@
                       </div>
                 </div>
             </div>
-            
+            <!--Admin page-->
+            <div id="admin-content" ng-controller="AdminController" class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                <div ng-show="showToast" class="alert alert-success alert-dismissible" role="alert" ng-bind="toastMessage"></div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">You have <span class="bold" ng-bind="requests.length"></span> unapproved requests</h3> </div>
+                    <div class="panel-body">
+                        <div class="approval-list">
+                            <div ng-repeat="request in requests" class="row notification notification-unread">
+                                <div ng-switch on="request.approvalStatus">
+                                    <div class="animate-switch approve-request-section" ng-switch-when="Pending">
+                                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                                            <h6><span ng-bind="request.userName"></span> wants to register for the team <span ng-bind="request.teamName"></span></h6>       
+                                        </div>
+                                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                            <button class="btn btn-success btn-block" spinner spinner-hidden="request.isSpinnerHidden" ng-click="approveUserRequest(request)">Approve</button>
+                                        </div>
+                                    </div>
+                                    <div class="animate-switch update-team-section" ng-switch-when="Approved">
+                                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                                            <h6><span ng-bind="request.userName"></span> is assigned to the team <span ng-bind="request.teamName"></span></h6>       
+                                        </div>
+                                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                            <select class="form-control" ng-model="request.teamName" ng-options="team for team in teamList" ng-change="changeUserTeamDetails(request)" ><option value="">Please select</option></select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Admin page ends-->
         </div>
     </div>
     <div id="footer-main" class="container text-center">
@@ -418,10 +451,13 @@ new Chartist.Line('.ct-chart', data, options);
     <script src="javascripts/vendor/angular/angular.js"></script>
     <script src="javascripts/vendor/angular/angular-route.js"></script>
     <script src="javascripts/mvc/app.js"></script>
+    <script src="javascripts/mvc/directives/spinner.directive.js"></script>
     <script src="javascripts/mvc/services/FayeClientFactory.js"></script>
+    <script src="javascripts/mvc/services/TeamService.js"></script>
+    <script src="javascripts/mvc/services/UserService.js"></script>
     <script src="javascripts/mvc/services/NewsFeedService.js"></script>
     <script src="javascripts/mvc/controllers/NewsFeedController.js"></script>
-    
+    <script src="javascripts/mvc/controllers/AdminController.js"></script>
 </body>
 
 </html>

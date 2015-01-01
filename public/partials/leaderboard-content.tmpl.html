@@ -1,0 +1,98 @@
+<div id="leaderboard-content" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="panel panel-warning">
+          <div class="panel-heading orange-bg">
+                <h3 class="panel-title">Leaderboard</h3>
+          </div>
+          <div class="panel-body">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <table class="table table-condensed">
+                          <thead>
+                            <tr>
+                              <th>#</th>
+                              <th>Team</th>
+                              <th>Score</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <th scope="row">1</th>
+                              <td>Bucaneers</td>
+                              <td>150</td>
+                            </tr>
+                            <tr>
+                              <th scope="row">2</th>
+                              <td>Manchester United</td>
+                              <td>100</td>
+                            </tr>
+                            <tr>
+                              <th scope="row">3</th>
+                              <td>Random</td>
+                              <td>75</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        
+                    </div>
+                    <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
+                        <h5>Team wise solve times across the levels</h5>
+                            <div class="ct-chart ct-perfect-fourth">
+                            </div>
+                        </div>
+                        
+                </div>
+          </div>
+    </div>
+</div>
+<script>
+    // Our labels and three data series
+var data = {
+  labels: ['Step1', 'Step2', 'Step3', 'Step4', 'Step5', 'Step6'],
+  series: [
+  {
+      name: 'Fibonacci sequence1',
+      data: [5, 4, 6.5, 4, 5, 7]
+    }
+    ,
+    {
+      name: 'Fibonacci sequence2',
+      data: [3, 2, 9, 5, 4, 6]
+    }
+    ,
+    {
+      name: 'Fibonacci sequence3',
+      data: [2, 1.5, 3, 4, 2, 2]
+    }
+    
+  ]
+};
+
+// We are setting a few options for our chart and override the defaults
+var options = {
+  // Don't draw the line chart points
+  showPoint: true,
+  // Disable line smoothing
+  lineSmooth: false,
+  // X-Axis specific configuration
+  axisX: {
+    // We can disable the grid for this axis
+    showGrid: false,
+    // and also don't show the label
+    showLabel: true
+  },
+  // Y-Axis specific configuration
+  axisY: {
+    // Lets offset the chart a bit from the labels
+    offset: 40,
+    // The label interpolation function enables you to modify the values
+    // used for the labels on each axis. Here we are converting the
+    // values into million pound.
+    labelInterpolationFnc: function(value) {
+      return value + ' hr';
+    }
+  }
+};
+
+// All you need to do is pass your configuration as third parameter to the chart function
+new Chartist.Line('.ct-chart', data, options);
+    </script>

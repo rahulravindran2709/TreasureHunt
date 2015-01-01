@@ -1,2 +1,2 @@
-var app=angular.module('TreasureHunt',['ngRoute']);
+var app=angular.module('TreasureHunt',['ngRoute','ngAnimate']);
 app.constant('faye',Faye);

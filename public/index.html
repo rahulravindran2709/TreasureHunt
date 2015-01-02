@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
     <link rel="stylesheet" href="stylesheets/bootstrap/bootstrap-theme.min.css">
     <link rel="stylesheet" href="stylesheets/font-awesome/font-awesome.css">
+    <link rel="stylesheet" href="stylesheets/animate.css">
     <link rel="stylesheet" href="stylesheets/style.css">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 </head>
@@ -26,18 +27,17 @@
     <!--[if lt IE 7]> <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p> <![endif]-->
     <!-- Add your site or application content here -->
     <!--NAvigation content start-->
-    <div id="nav-main" class="navbar navbar-inverse">
+    <div id="nav-main" class="navbar navbar-inverse" ng-controller="NavController">
         <div class="container">
             <div class="navbar-header"> <a class="navbar-brand" href="#">Treasure Hunt</a> </div>
-            <div class="navbar-collapse navbar-inverse-collapse">
+            <div ng-if="isAuthenticated" ng-cloak class="navbar-collapse navbar-inverse-collapse">
                 <ul class="nav navbar-nav">
                     <li class="active nav-item"><a href="#team-content"><span class="visible-xs-inline"><i class="fa fa-users"></i></span><span class="hidden-xs">Team</span></a> </li>
                     <li class="nav-item"><a href="#clues-content"><span class="visible-xs-inline"><i class="fa fa-search"></i></span><span class="hidden-xs">Clues</span></a> </li>
                     <li class="nav-item"><a href="#megamap-content"><span class="visible-xs-inline"><i class="fa fa-flag-checkered"></i></span><span class="hidden-xs">MegaMap</span></a> </li>
                     <li class="nav-item"><a href="#leaderboard-content"><span class="visible-xs-inline"><i class="fa fa-bar-chart-o"></i></span><span class="hidden-xs">LeaderBoard</span></a> </li>
-                    <li class="nav-item visible-xs-inline"><a href="#"><i class="fa fa-comments"></i></a> </li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right">
+                <ul  class="nav navbar-nav navbar-right">
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="javascripts/vendor/holder/holder.js/20x20/auto/textmode:exact" class="img-thumbnail" />&nbsp;Rahul <b class="caret"></b> </a>
                         <ul class="dropdown-menu">
@@ -50,7 +50,7 @@
             </div>
         </div>
     </div>
-    <div class="container-fluid visible-xs visible-lg" ng-controller="MobileChatController">
+    <div class="container-fluid visible-xs visible-sm" ng-controller="MobileChatController">
         <div ng-show="showChat" class="chat-mobile-overlay"></div>
         <div ng-show="showChat" class="chat-mobile-container">
             <div class="row">
@@ -64,8 +64,7 @@
          
         <div class="row">
             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                <ng-include src="'partials/team-details.tmpl.html'"></ng-include>
-                <ng-include src="'partials/clues-content.tmpl.html'"></ng-include>
+                <ng-include src="'partials/landing.tmpl.html'"></ng-include>
                 <ng-include src="'partials/leaderboard-content.tmpl.html'"></ng-include>
                 <ng-include src="'partials/admin-page.tmpl.html'"></ng-include>
                 <ng-include src="'partials/registration-page.tmpl.html'"></ng-include>
@@ -113,7 +112,7 @@
     <script>
         window.jQuery || document.write('<script src="javascripts/vendor/jquery/jquery-1.11.1.js"><\/script>')
     </script>
-
+    <ng-include src="'partials/login.tmpl.html'"></ng-include>
     <!-- Latest compiled and minified JavaScript -->
     <script src="javascripts/vendor/bootstrap/bootstrap.js"></script>
     <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
@@ -125,11 +124,12 @@
     <script src="javascripts/vendor/angular/angular-animate.js"></script>
     <script src="javascripts/mvc/app.js"></script>
     <script src="javascripts/mvc/directives/spinner.directive.js"></script>
-    
     <script src="javascripts/mvc/services/FayeClientFactory.js"></script>
     <script src="javascripts/mvc/services/TeamService.js"></script>
     <script src="javascripts/mvc/services/UserService.js"></script>
     <script src="javascripts/mvc/services/NewsFeedService.js"></script>
+    <script src="javascripts/mvc/controllers/NavController.js"></script>
+    <script src="javascripts/mvc/controllers/HomeController.js"></script>
     <script src="javascripts/mvc/controllers/MobileChatController.js"></script>
     <script src="javascripts/mvc/controllers/NewsFeedController.js"></script>
     <script src="javascripts/mvc/controllers/AdminController.js"></script>

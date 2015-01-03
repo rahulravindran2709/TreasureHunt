@@ -3,7 +3,6 @@
  * @desc This serves as the controller for the admin landing page
  */
 app.controller('AdminController',['$scope','UserService','TeamService','$timeout',function($scope,userService,teamService,$timeout){
-    console.log('In admin controller');
     $scope.isHidden=true;
     /**
    * @name init

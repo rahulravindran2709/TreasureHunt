@@ -33,7 +33,16 @@ app.post('/message', function(req, res) {
     console.log('broadcast message:' + req.body.message);
     res.status(200).send({ message: 'Success' });
 });
-
+app.post('/login',function(req,res){
+    console.log('Mine');
+    if(req.body.username=='Rahul'&&req.body.password=="r")
+    {
+        res.status(200).send({ message: 'Success' });
+    }
+    else{
+        res.status(401).send({error:'Invalid'});
+    }
+});
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');

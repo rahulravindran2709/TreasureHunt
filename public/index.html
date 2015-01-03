@@ -68,6 +68,7 @@
                 <ng-include src="'partials/leaderboard-content.tmpl.html'"></ng-include>
                 <ng-include src="'partials/admin-page.tmpl.html'"></ng-include>
                 <ng-include src="'partials/registration-page.tmpl.html'"></ng-include>
+                <ng-include src="'partials/login.tmpl.html'"></ng-include>
             </div>
             <div class="col-lg-4 col-md-4 hidden-sm hidden-xs">
                 <ng-include src="'partials/newsfeed.tmpl.html'"></ng-include>
@@ -112,7 +113,6 @@
     <script>
         window.jQuery || document.write('<script src="javascripts/vendor/jquery/jquery-1.11.1.js"><\/script>')
     </script>
-    <ng-include src="'partials/login.tmpl.html'"></ng-include>
     <!-- Latest compiled and minified JavaScript -->
     <script src="javascripts/vendor/bootstrap/bootstrap.js"></script>
     <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
@@ -122,8 +122,10 @@
     <script src="javascripts/vendor/angular/angular.js"></script>
     <script src="javascripts/vendor/angular/angular-route.js"></script>
     <script src="javascripts/vendor/angular/angular-animate.js"></script>
+    <script src="javascripts/mvc/directives/auth.directive.js"></script>
     <script src="javascripts/mvc/app.js"></script>
     <script src="javascripts/mvc/directives/spinner.directive.js"></script>
+    
     <script src="javascripts/mvc/services/FayeClientFactory.js"></script>
     <script src="javascripts/mvc/services/TeamService.js"></script>
     <script src="javascripts/mvc/services/UserService.js"></script>

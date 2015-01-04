@@ -30,7 +30,8 @@
     <div id="nav-main" class="navbar navbar-inverse" ng-controller="NavController">
         <div class="container">
             <div class="navbar-header"> <a class="navbar-brand" href="#">Treasure Hunt</a> </div>
-            <div ng-if="isAuthenticated" ng-cloak class="navbar-collapse navbar-inverse-collapse">
+            <simple-auth-secured>
+            <div ng-cloak class="navbar-collapse navbar-inverse-collapse">
                 <ul class="nav navbar-nav">
                     <li class="active nav-item"><a href="#team-content"><span class="visible-xs-inline"><i class="fa fa-users"></i></span><span class="hidden-xs">Team</span></a> </li>
                     <li class="nav-item"><a href="#clues-content"><span class="visible-xs-inline"><i class="fa fa-search"></i></span><span class="hidden-xs">Clues</span></a> </li>
@@ -39,7 +40,10 @@
                 </ul>
                 <ul  class="nav navbar-nav navbar-right">
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="javascripts/vendor/holder/holder.js/20x20/auto/textmode:exact" class="img-thumbnail" />&nbsp;Rahul <b class="caret"></b> </a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="javascripts/vendor/holder/holder.js/20x20/auto/textmode:exact" class="img-thumbnail" />&nbsp;<simple-Auth-credentials field="username"></simple-auth-credentials> 
+                                <b class="caret"></b> 
+                            </a>
                         <ul class="dropdown-menu">
                             <li><a href="#">Account settings</a> </li>
                             <li class="divider"></li>
@@ -48,6 +52,15 @@
                     </li>
                 </ul>
             </div>
+            </simple-auth-secured>
+            <simple-auth-unsecured>
+                <div ng-cloak class="navbar-collapse navbar-inverse-collapse">
+                <ul  class="nav navbar-nav navbar-right">
+                    <li><a>Log in</a></li>
+                    <li><a>Register</a></li>
+                </ul>
+            </div>
+            </simple-auth-unsecured>
         </div>
     </div>
     <div class="container-fluid visible-xs visible-sm" ng-controller="MobileChatController">
@@ -63,16 +76,21 @@
     <div id="content" class="container">
          
         <div class="row">
+            
+            <ng-include src="'partials/login.tmpl.html'"></ng-include>
+            
+            <simple-auth-secured>
             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                <ng-include src="'partials/landing.tmpl.html'"></ng-include>
+                <div ng-view></div>
+                <!--<ng-include src="'partials/landing.tmpl.html'"></ng-include>
                 <ng-include src="'partials/leaderboard-content.tmpl.html'"></ng-include>
                 <ng-include src="'partials/admin-page.tmpl.html'"></ng-include>
-                <ng-include src="'partials/registration-page.tmpl.html'"></ng-include>
-                <ng-include src="'partials/login.tmpl.html'"></ng-include>
+                <ng-include src="'partials/registration-page.tmpl.html'"></ng-include>-->
             </div>
             <div class="col-lg-4 col-md-4 hidden-sm hidden-xs">
                 <ng-include src="'partials/newsfeed.tmpl.html'"></ng-include>
             </div>
+            </simple-auth-secured>
         </div>
     </div>
     <div id="footer-main" class="container text-center">

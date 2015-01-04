@@ -35,7 +35,7 @@ app.post('/message', function(req, res) {
 });
 app.post('/login',function(req,res){
     console.log('Mine');
-    if(req.body.username=='Rahul'&&req.body.password=="r")
+    if(req.body.username=='r'&&req.body.password=="r")
     {
         res.status(200).send({ message: 'Success' });
     }

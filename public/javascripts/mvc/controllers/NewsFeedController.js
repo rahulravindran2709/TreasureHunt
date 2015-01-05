@@ -1,6 +1,4 @@
 app.controller('NewsFeedController',['$scope','NewsFeedService',function($scope,newsFeedService){
-    console.log('In controller');
-    
     function init(){
         $scope.publicFeeds = newsFeedService.getPublicFeeds();
         newsFeedService.subscribeToChannels('Team1',function(message){

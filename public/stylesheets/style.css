@@ -49,7 +49,7 @@ body{
 #nav-main li > a,#footer-main li > a{
 	color:#fff;
 }
-#nav-main,#content .orange-bg,#footer-main footer{
+#nav-main,#content .orange-bg,.orange-bg,#footer-main footer{
 	background-color:#ea5a1e;
 }
 .member-social-media a.member-social-media-icon{

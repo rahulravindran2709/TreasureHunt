@@ -7,9 +7,16 @@ app.config(['$routeProvider','$locationProvider',
       when('/', {
         templateUrl: 'partials/landing.tmpl.html',
         controller: 'HomeController'
-      }).
+      }).when('/login',{
+        templateUrl: 'partials/login.tmpl.html',
+      })
+      .
       when('/leaderboard', {
         templateUrl: 'partials/leaderboard-content.tmpl.html',
+        controller: 'HomeController'
+      }).
+      when('/registration',{
+        templateUrl: 'partials/registration-page.tmpl.html',
         controller: 'HomeController'
       }).
       otherwise({

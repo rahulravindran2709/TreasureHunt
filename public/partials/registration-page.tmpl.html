@@ -1,4 +1,4 @@
-<div id="registration-content">
+<div id="registration-content" ng-controller="RegistrationController">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="panel panel-primary">
         <div class="panel-heading">
@@ -10,14 +10,14 @@
                     First Name
                     </label>
                     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-                    <input class="form-control" name="firstName" />
+                    <input class="form-control" ng-model="newUser.firstName" name="firstName" />
                     </div>
             </div>
             <div class="form-group">
                 <label class="form-label col-xs-12 col-sm-12 col-md-3 col-lg-3" for ="lastName" >
                     Last Name
                     </label>
-                    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3"><input class="form-control" name="lastName" />
+                    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3"><input ng-model="newUser.firstName" class="form-control" name="lastName" />
                     </div>
                     
             </div>
@@ -25,7 +25,7 @@
                 <label class="form-label col-xs-12 col-sm-12 col-md-3 col-lg-3" for ="email" >
                     Email address
                     </label>
-                    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3"><input type="email" class="form-control" name="email" />
+                    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3"><input  ng-model="newUser.email" type="email" class="form-control" name="email" />
                     </div>
                     
             </div>
@@ -33,7 +33,7 @@
                 <label class="form-label col-xs-12 col-sm-12 col-md-3 col-lg-3" for ="phone" >
                     Phone number
                     </label>
-                    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3"> <input type="text" class="form-control" name="phone" />
+                    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3"> <input ng-model="newUser.phone" type="text" class="form-control" name="phone" />
                     </div>
                    
             </div>
@@ -41,7 +41,7 @@
                 <label class="form-label col-xs-12 col-sm-12 col-md-3 col-lg-3" for ="password" >
                     Password
                     </label>
-                    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3"> <input type="text" class="form-control" name="password" />
+                    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3"> <input ng-model="newUser.password" type="text" class="form-control" name="password" />
                     </div>
                    
             </div>
@@ -49,7 +49,7 @@
                 <label class="form-label col-xs-12 col-sm-12 col-md-3 col-lg-3" for ="passwordconfirm" >
                     Confirm Password 
                     </label>
-                    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3"> <input type="text" class="form-control" name="passwordConfirm" />
+                    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3"> <input  type="text" class="form-control" name="passwordConfirm" />
                     </div>
             </div>
             <div class="form-group">
@@ -57,7 +57,7 @@
                     Select your team 
                     </label>
                     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3"> 
-                    <select class="form-control" name="teamSelect">
+                    <select class="form-control" name="teamSelect" ng-model="newUser.teamName">
                         <option>Please select</option>
                         <option>Please select</option>
                         <option>Please select</option>
@@ -67,7 +67,7 @@
             </div>
             <div class="form-group">
                 
-                    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3"> <button class="btn btn-primary btn-block">Register</button>
+                    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3"> <button class="btn btn-primary btn-block" ng-click="invokeRegister()">Register</button>
                     </div>
             </div>
         </form>

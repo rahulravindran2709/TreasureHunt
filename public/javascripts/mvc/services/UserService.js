@@ -19,6 +19,6 @@ app.service('UserService',['$http','$q',function($http,$q){
         return deferred.promise;
     }
     this.getUserByUsername=function(name){
-        return $http.get('/user/name/show');
+        return $http.get('/api/users/'+name+'/show');
     }
 }]);

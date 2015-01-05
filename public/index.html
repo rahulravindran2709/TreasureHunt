@@ -44,7 +44,7 @@
                             <img src="javascripts/vendor/holder/holder.js/20x20/auto/textmode:exact" class="img-thumbnail" />&nbsp;<simple-Auth-credentials field="username"></simple-auth-credentials> 
                                 <b class="caret"></b> 
                             </a>
-                        <ul class="dropdown-menu">
+                        <ul class="orange-bg dropdown-menu">
                             <li><a href="#">Account settings</a> </li>
                             <li class="divider"></li>
                             <li><a href="#">Log out</a> </li>
@@ -77,9 +77,6 @@
          
         <div class="row">
             
-            <ng-include src="'partials/login.tmpl.html'"></ng-include>
-            
-            <simple-auth-secured>
             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                 <div ng-view></div>
                 <!--<ng-include src="'partials/landing.tmpl.html'"></ng-include>
@@ -90,7 +87,6 @@
             <div class="col-lg-4 col-md-4 hidden-sm hidden-xs">
                 <ng-include src="'partials/newsfeed.tmpl.html'"></ng-include>
             </div>
-            </simple-auth-secured>
         </div>
     </div>
     <div id="footer-main" class="container text-center">

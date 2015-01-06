@@ -10,7 +10,8 @@
     angularSimpleAuth.constant('authEvents',{
         AUTH_SUCCESS:'auth-success',
         AUTH_INVALID_CRED:'auth-invalid-credentials',
-        AUTH_UNAUTHORIZED_ACCESS:'auth-unauthorized'
+        AUTH_UNAUTHORIZED_ACCESS:'auth-unauthorized',
+        AUTH_LOGOUT:'auth-logout'
     })
     /**
      * @name AuthController
@@ -33,10 +34,9 @@
             credentials.setUsername($scope.credentials.username);
             authService.getUserDetailsByUsername($scope.credentials.username,'UserService').then(function(data){
                 console.log('Success while getting the user data'+angular.toJson(data.data));
-                
-                $rootScope.$broadcast(authEvents.AUTH_SUCCESS);
                  credentials.setCurrentUserData(data.data);
-                 $window.sessionStorage.setItem('currentUser',credentials);
+                 $window.sessionStorage.setItem('currentUser',angular.toJson(credentials.getCurrentUser()));
+                 $rootScope.$broadcast(authEvents.AUTH_SUCCESS);
                  $location.path('/');
                  
             });
@@ -76,7 +76,16 @@
         this.executeLoginAction=function(){
             console.log('Executed login action'+angular.toJson($scope.credentials)+$scope.loginUrl);
                 authService.login($scope.credentials,$scope.loginUrl).then(authSucessCallback,authFailureCallback)
-            };}])
+		 };
+        this.initiateLogout=function(){
+                    authService.logout().then(function(){
+                        $rootScope.$broadcast(authEvents.AUTH_LOGOUT);
+                        $location.path('/login');
+                    });
+                    
+
+                }
+    }])
     /**
      * @name simpleAuthForm
      * @desc The main directive which initialises many of the configurational values like the login url,name of the service to be invoked for getting the user details
@@ -140,7 +149,38 @@
                 })
             }
         };
-    }).directive('simpleAuthSecured',['authEvents',function(authEvents){
+	})
+	.controller('LogoutController',['authEvents','$rootScope','$location','AuthService',function(authEvents,$rootScope,$location,authService){
+	    this.initiateLogout=function(){
+	        authService.logout().then(function(){
+                        $rootScope.$broadcast(authEvents.AUTH_LOGOUT);
+                        $location.path('/login');
+                    });
+	    }
+	}])
+	
+    .directive('simpleAuthLogout',function(){
+        return {
+            restrict: 'A',
+            replace: false,
+            scope:{},
+            controller:'LogoutController',
+            link:function($scope, elem, attrs,controller){
+                elem.bind('click',function(){
+		    console.log('Here');
+		    controller.initiateLogout();
+                })
+            }
+        };
+    })
+    /**
+     * @name  simpleAuthSecured
+     * @desc This element level directive is used to secure parts of the html page which can only be viewed by a authenticated user
+     *       It hides the content when no user is logged in and shows when a user authenticates himself
+     *       WOuld mostly be used for content which are not part of the route but still need to be secured
+     * 
+     */ 
+    .directive('simpleAuthSecured',['authEvents',function(authEvents){
         return {
             restrict: 'E',
             replace: true,
@@ -152,12 +192,26 @@
                     console.log('Auth success');
                     $scope.isAuthenticated=true;
                     $scope.currentUser=credentials.getCurrentUser();
+                    console.log('Value of current user in auth secured'+angular.toJson($scope.currentUser)+' '+angular.toJson(credentials.getCurrentUser()));
+                });
+                $scope.$on(authEvents.AUTH_LOGOUT,function(){
+                    console.log('Auth logout');
+                    $scope.isAuthenticated=false;
+                    $scope.currentUser={};
                 });
             
             }],
             link:function($scope, elem, attrs) {}
         }
-    }]).directive('simpleAuthUnsecured',['authEvents',function(authEvents){
+    }])
+    /**
+     * @name  simpleAuthUnsecured
+     * @desc This element level directive is used to secure parts of the html page which needs 
+     *       to be shown to an unauthenticated user
+     *       more like a guest section of the site
+     * 
+     */ 
+    .directive('simpleAuthUnsecured',['authEvents',function(authEvents){
         return {
             restrict: 'E',
             replace: true,
@@ -168,6 +222,10 @@
                 $scope.$on(authEvents.AUTH_SUCCESS,function(){
                     console.log('Auth success');
                     $scope.isAuthenticated=true;
+                });
+                $scope.$on(authEvents.AUTH_LOGOUT,function(){
+                    console.log('Auth logout');
+                    $scope.isAuthenticated=false;
                 });
             
             }],
@@ -184,7 +242,7 @@
             require:['^simpleAuthSecured'],
             template:'<span ng-show="isAuthenticated" ng-bind="currentUser.username"></span>',
             link:function($scope, elem, attrs,controllers) {
-                console.log('In linke'+controllers);
+                console.log('Simple auth credentials'+$scope.isAuthenticated);
             }
         
             
@@ -195,10 +253,22 @@
         var roles=[];
         var currentUserData='';
         var clone=function(data){
+            console.log('Cloned'+angular.toJson(data));
             username=data.username;
             roles=data.roles;
             currentUserData=data.currentUserData;
         }
+        var destroyLocal=function(){
+            var deferred=$q.defer();
+            
+            $window.sessionStorage.removeItem('currentUser');
+            $window.sessionStorage.removeItem('token');
+            username='';
+            roles=[];
+            currentUserData='';
+            deferred.resolve();
+            return deferred.promise;
+        };
         var checkUserLoggedInLocal=function(){
             var deferred=$q.defer();
             if(username!=='')
@@ -209,11 +279,11 @@
                 //Check in session storage
                  if($window.sessionStorage.getItem('currentUser'))
                  {
-                     clone($window.sessionStorage.getItem('currentUser'));
+                     clone(JSON.parse($window.sessionStorage.getItem('currentUser')));
                      deferred.resolve();
                  }
                  else{
-                        deferred.reject();
+                        deferred.reject('User is not logged');
                  }
             }
             return deferred.promise;
@@ -234,9 +304,10 @@
         setUsername:setUserNameLocal,
         getCurrentUser:getCurrentUserLocal ,   
         checkUserLoggedIn:checkUserLoggedInLocal,
-        setCurrentUserData:setCurrentUserDataLocal
+        setCurrentUserData:setCurrentUserDataLocal,
+        destroy:destroyLocal
         }
-    }]).service('AuthService',['$http','$q','$injector',function($http,$q,$injector){
+    }]).service('AuthService',['$http','$q','$injector','Credentials',function($http,$q,$injector,credentials){
         this.login=function(data,url){
             var promise =$http.post(url,data);
             return promise.then();
@@ -244,13 +315,18 @@
         this.getUserDetailsByUsername=function(username,servicename){
             return $injector.get(servicename).getUserByUsername(username);
         }
+        this.logout=function(){
+            return credentials.destroy();
+            
+            
+        }
     }])
     /**
      * @name TokenAuthInterceptor
      * @desc This http interceptor is used to inject the token into every outgoing http request.Currently only requests
      * with 'api' in the url are injected with the token.
      * @param $rootScope- root scope of the angularjs app
-     *        $window - angularj window object
+     *        $window - angularjs window object
      *        $q - defer
      *        authEvents - constant with values for event names
      * 

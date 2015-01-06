@@ -7,7 +7,7 @@ app.controller('RegistrationController',['$scope','UserService','$location',func
         $location.path('/login');
     }
     $scope.invokeRegister=function(){
-        userService.createUser().then(registerSuccessCallback);
+        userService.createUser($scope.newUser).then(registerSuccessCallback);
     }
   
 }]);

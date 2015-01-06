@@ -40,14 +40,14 @@
                 </ul>
                 <ul  class="nav navbar-nav navbar-right">
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown">
                             <img src="javascripts/vendor/holder/holder.js/20x20/auto/textmode:exact" class="img-thumbnail" />&nbsp;<simple-Auth-credentials field="username"></simple-auth-credentials> 
                                 <b class="caret"></b> 
                             </a>
                         <ul class="orange-bg dropdown-menu">
-                            <li><a href="#">Account settings</a> </li>
+                            <li><a >Account settings</a> </li>
                             <li class="divider"></li>
-                            <li><a href="#">Log out</a> </li>
+                            <li><a simple-auth-logout>Log out</a> </li>
                         </ul>
                     </li>
                 </ul>
@@ -79,14 +79,12 @@
             
             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                 <div ng-view></div>
-                <!--<ng-include src="'partials/landing.tmpl.html'"></ng-include>
-                <ng-include src="'partials/leaderboard-content.tmpl.html'"></ng-include>
-                <ng-include src="'partials/admin-page.tmpl.html'"></ng-include>
-                <ng-include src="'partials/registration-page.tmpl.html'"></ng-include>-->
             </div>
+            <simple-auth-secured>
             <div class="col-lg-4 col-md-4 hidden-sm hidden-xs">
                 <ng-include src="'partials/newsfeed.tmpl.html'"></ng-include>
             </div>
+            </simple-auth-secured>
         </div>
     </div>
     <div id="footer-main" class="container text-center">

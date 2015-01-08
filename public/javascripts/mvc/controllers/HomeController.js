@@ -1,13 +1,26 @@
-app.controller('HomeController',['$scope',function($scope){
+/**
+ * @name HomeController
+ * @desc This controller handles the scope for the landing page
+ * 
+ * 
+ */ 
+app.controller('HomeController',['$scope','$location','routeConstants','Credentials',function($scope,$location,routeConstants,credentials){
     function init(){
-        $scope.user={userName:'Rahul',teamName:'Bucaneers',steps:2};
+        
+        var userData=credentials.getCurrentUser();
+        userData=userData.data;
+        console.log('Value of credentials in home page'+angular.toJson(userData));
+        $scope.user={username:userData.username,teamName:userData.teamName,steps:userData.stepsRemaining}
         $scope.isClueHidden=false;
-        $scope.totalSteps=6;
-        $scope.user.progress=($scope.totalSteps-$scope.user.steps)*(100/6)+'%';
+        $scope.totalSteps=userData.stepsTotal;
+        $scope.user.progress=($scope.totalSteps-$scope.user.steps)*(100/$scope.totalSteps)+'%';
     }
     init();
     $scope.toggleCluesSection=function(){
          $scope.isClueHidden=!$scope.isClueHidden;
     } 
+    $scope.goToGame=function(){
+        $location.path(routeConstants.GAME_URL);
+    }
   
 }]);

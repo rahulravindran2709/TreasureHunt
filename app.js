@@ -1,5 +1,6 @@
 var express = require('express');
 var path = require('path');
+var db = require('./db');
 var favicon = require('static-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
@@ -11,6 +12,8 @@ var bayeux = new Faye.NodeAdapter({ mount: '/faye', timeout: 45 });
 var client = bayeux.getClient();
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var team = require('./routes/team');
+
 //var message = require('./routes/message');
 
 var app = express();
@@ -28,8 +31,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use('/', routes);
-app.use('/api', expressJwt({secret: 'secret'}));
+//app.use('/api', expressJwt({secret: 'secret'}));
 app.use('/api/users', users);
+app.use('/api/team', team);
 /* POST message*/
 app.post('/message', function(req, res) {
     app.get('bayeux').getClient().publish('/channel', { text: req.body.message });

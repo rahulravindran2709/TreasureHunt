@@ -74,7 +74,6 @@
          * @desc This method is the click handler for the login button denoted by the simple-auth-login directive
          */
         this.executeLoginAction=function(){
-            console.log('Executed login action'+angular.toJson($scope.credentials)+$scope.loginUrl);
                 authService.login($scope.credentials,$scope.loginUrl).then(authSucessCallback,authFailureCallback)
 		 };
         this.initiateLogout=function(){
@@ -167,7 +166,6 @@
             controller:'LogoutController',
             link:function($scope, elem, attrs,controller){
                 elem.bind('click',function(){
-		    console.log('Here');
 		    controller.initiateLogout();
                 })
             }
@@ -189,13 +187,10 @@
             controller:['$scope','Credentials',function($scope,credentials){
                 
                 $scope.$on(authEvents.AUTH_SUCCESS,function(){
-                    console.log('Auth success');
                     $scope.isAuthenticated=true;
                     $scope.currentUser=credentials.getCurrentUser();
-                    console.log('Value of current user in auth secured'+angular.toJson($scope.currentUser)+' '+angular.toJson(credentials.getCurrentUser()));
                 });
                 $scope.$on(authEvents.AUTH_LOGOUT,function(){
-                    console.log('Auth logout');
                     $scope.isAuthenticated=false;
                     $scope.currentUser={};
                 });
@@ -220,11 +215,9 @@
             controller:['$scope','Credentials',function($scope,credentials){
                 
                 $scope.$on(authEvents.AUTH_SUCCESS,function(){
-                    console.log('Auth success');
                     $scope.isAuthenticated=true;
                 });
                 $scope.$on(authEvents.AUTH_LOGOUT,function(){
-                    console.log('Auth logout');
                     $scope.isAuthenticated=false;
                 });
             
@@ -242,7 +235,6 @@
             require:['^simpleAuthSecured'],
             template:'<span ng-show="isAuthenticated" ng-bind="currentUser.username"></span>',
             link:function($scope, elem, attrs,controllers) {
-                console.log('Simple auth credentials'+$scope.isAuthenticated);
             }
         
             
@@ -256,7 +248,7 @@
             console.log('Cloned'+angular.toJson(data));
             username=data.username;
             roles=data.roles;
-            currentUserData=data.currentUserData;
+            currentUserData=data.data;
         }
         var destroyLocal=function(){
             var deferred=$q.defer();
@@ -334,7 +326,6 @@
     .factory('TokenAuthInterceptor',['$rootScope','$window','$q','authEvents',function($rootScope,$window,$q,authEvents){
         var requestLocal=function(config){
             config.headers = config.headers || {};
-            console.log('$window.sessionStorage.token'+$window.sessionStorage.token);
                 if ($window.sessionStorage.token&&config.url.indexOf('api')!=-1) {
                     config.headers.Authorization = 'Bearer ' + $window.sessionStorage.token;
                 }
@@ -358,10 +349,9 @@
         
         $rootScope.$on('$routeChangeStart',function(event,next,current){
             credentials.checkUserLoggedIn().then(function(){
-            console.log('OK');
             $rootScope.$broadcast(authEvents.AUTH_SUCCESS);
         },function(error){
-            console.log('Error in route authentication'+angular.toJson(error));
+
             $location.path('/login');
         });
             

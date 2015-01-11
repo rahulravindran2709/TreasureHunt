@@ -1,7 +1,9 @@
-app.controller('GameController',['$scope','TeamService',function($scope,teamService){
+app.controller('GameController',['$scope','TeamService','Credentials',function($scope,teamService,credentials){
     function init(){
-        $scope.currentClue={passcode:''};
-        $scope.currentUser={username:'r',teamName:'Bucaneers'};
+        var userData=credentials.getCurrentUser();
+        userData=userData.data;
+        $scope.currentUser={username:userData.username,teamName:userData.teamName,steps:userData.stepsRemaining}
+        console.log('Value of credentials in home page'+angular.toJson(userData));
         teamService.getClueForTeam($scope.currentUser.teamName).then(getClueForTeamSuccessCallback,getClueErrorCallback);
     }
     init();

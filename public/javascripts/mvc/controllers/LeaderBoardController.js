@@ -1,3 +1,9 @@
+/**
+ *  @name LeaderboardController
+ *  @desc Handles all functionality in leaderbaord screen like retrieving current standings and some analytics
+ * 
+ * 
+ */ 
 app.controller('LeaderboardController',['$scope','TeamService',function($scope,teamService){
     var getTeamScores=function(){
         teamService.getAllTeams().then(function(data){

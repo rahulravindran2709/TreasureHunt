@@ -1,75 +1,99 @@
-<div id="registration-content" ng-controller="RegistrationController">
+<div id="registration-content">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="panel panel-primary">
         <div class="panel-heading">
             <h3 class="panel-title">Register</h3> </div>
         <div class="panel-body">
-        <form id="register-form" class="form form-horizontal">
+        <form name="registrationForm" id="registrationForm" class="form form-horizontal" ng-submit="invokeRegister()" novalidate>
+            <!--Fake inputs to fool chrome-->
+            <input style="display:none" type="text" name="fakeusernameremembered"/>
+            <input style="display:none" type="password" name="fakepasswordremembered"/>
+            <!--Fake inputs end -->
             <div class="form-group">
-                <label class="form-label col-xs-12 col-sm-12 col-md-3 col-lg-3" for ="firstName" >
-                    First Name
+                <label class="form-label col-xs-12 col-sm-12 col-md-3 col-lg-offset-3 col-lg-3" for ="firstName"  >
+                    Name
                     </label>
                     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-                    <input class="form-control" ng-model="newUser.firstName" name="firstName" />
+                        <div class="input-group">
+                            <input class="form-control" ng-model="newUser.firstName" name="firstName" placeholder="Your screen name" required />
+                            <div  class="input-group-addon"><i ng-show="registrationForm.firstName.$valid" class="fa fa-check-square fa-2x correct-field"></i></div>
+                        </div>
                     </div>
             </div>
             <div class="form-group">
-                <label class="form-label col-xs-12 col-sm-12 col-md-3 col-lg-3" for ="lastName" >
-                    Last Name
-                    </label>
-                    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3"><input ng-model="newUser.firstName" class="form-control" name="lastName" />
-                    </div>
-                    
-            </div>
-            <div class="form-group">
-                <label class="form-label col-xs-12 col-sm-12 col-md-3 col-lg-3" for ="email" >
+                <label class="form-label col-xs-12 col-sm-12 col-md-3 col-lg-3 col-lg-offset-3" for ="email" >
                     Email address
                     </label>
-                    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3"><input  ng-model="newUser.email" type="email" class="form-control" name="email" />
+                    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                        
+                        <div class="input-group">
+                            <input ng-model="newUser.email" type="email" class="form-control" name="email" required unique-email />
+                            <div class="input-group-addon">
+                                <i ng-show="registrationForm.email.$valid" class="fa fa-check-square fa-2x correct-field"></i>
+                            </div>
+                        </div>
                     </div>
                     
             </div>
             <div class="form-group">
-                <label class="form-label col-xs-12 col-sm-12 col-md-3 col-lg-3" for ="phone" >
+                <label class="form-label col-xs-12 col-sm-12 col-md-3 col-lg-3 col-lg-offset-3" for ="phone" >
                     Phone number
                     </label>
-                    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3"> <input ng-model="newUser.phone" type="text" class="form-control" name="phone" />
+                    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                        <div class="input-group"> 
+                            <input ng-model="newUser.phone" type="tel" class="form-control" name="phone" required />
+                            <div class="input-group-addon">
+                                <i ng-show="registrationForm.phone.$valid" class="fa fa-check-square fa-2x correct-field"></i>
+                            </div>
+                        </div>
                     </div>
                    
             </div>
             <div class="form-group">
-                <label class="form-label col-xs-12 col-sm-12 col-md-3 col-lg-3" for ="password" >
+                <label class="form-label col-xs-12 col-sm-12 col-md-3 col-lg-3 col-lg-offset-3" for ="password" >
                     Password
                     </label>
-                    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3"> <input ng-model="newUser.password" type="text" class="form-control" name="password" />
+                    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                        <div class="input-group"> 
+                            <input check-password show-password="registration.checkPasswordToggle" ng-model="newUser.password" type="password" class="form-control" name="password" required/>
+                            <div ng-click="togglePasswordField()" class="input-group-addon"> 
+                            <i ng-class="{'fa':true, 'fa-eye':true, 'fa-2x':true,'active-eye-icon':registration.checkPasswordToggle}"></i>
+                            </div>
+                            <div class="input-group-addon">
+                                <i ng-show="registrationForm.password.$valid" class="fa fa-check-square fa-2x correct-field"></i>
+                            </div>
                     </div>
-                   
+                    </div>
             </div>
             <div class="form-group">
-                <label class="form-label col-xs-12 col-sm-12 col-md-3 col-lg-3" for ="passwordconfirm" >
-                    Confirm Password 
-                    </label>
-                    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3"> <input  type="text" class="form-control" name="passwordConfirm" />
-                    </div>
-            </div>
-            <div class="form-group">
-                <label class="form-label col-xs-12 col-sm-12 col-md-3 col-lg-3" for ="teamSelect" >
-                    Select your team 
-                    </label>
-                    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3"> 
-                    <select class="form-control" name="teamSelect" ng-model="newUser.teamName">
-                        <option>Please select</option>
-                        <option>Please select</option>
-                        <option>Please select</option>
-                        <option>Please select</option>
+                <label class="form-label col-xs-12 col-sm-12 col-md-3 col-lg-3 col-lg-offset-3" for ="teamSelect" >
+                    Select your team
+                </label>
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-6">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-6">
+                    <select ng-change="checkAddNewTeamToggle()" ng-options="team.teamName as team.teamName for team in teams" class="form-control" name="teamSelect" ng-model="newUser.existingTeamName">
+                    <option value="">Please select</option>
                     </select>
                     </div>
+                    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-6">
+                     <input ng-show="registration.isNewTeamSelected" type="text" class="inline-input-height-adjust" ng-model="newUser.newTeamName" />
+                </div>
+                </div>
+                </div>
+                     
             </div>
             <div class="form-group">
-                
-                    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3"> <button class="btn btn-primary btn-block" ng-click="invokeRegister()">Register</button>
+                    
+                   
+                    
+            </div>
+            <div class="form-group">
+                    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-lg-offset-3"> 
+                    <button class="btn btn-primary btn-block" >Register</button>
                     </div>
             </div>
+            
         </form>
         </div>
         </div>

@@ -29,7 +29,7 @@
     <!--NAvigation content start-->
     <div id="nav-main" class="navbar navbar-inverse" ng-controller="NavController">
         <div class="container">
-            <div class="navbar-header"> <a class="navbar-brand" href="#">Treasure Hunt</a> </div>
+            <div class="navbar-header"> <a class="navbar-brand" href="#">STH '15</a> </div>
             <simple-auth-secured>
             <div ng-cloak class="navbar-collapse navbar-inverse-collapse">
                 <ul class="nav navbar-nav">
@@ -53,10 +53,9 @@
             </div>
             </simple-auth-secured>
             <simple-auth-unsecured>
-                <div ng-cloak class="navbar-collapse navbar-inverse-collapse">
+                <div ng-cloak class="hidden-xs navbar-collapse navbar-inverse-collapse">
                 <ul  class="nav navbar-nav navbar-right">
-                    <li><a>Log in</a></li>
-                    <li><a>Register</a></li>
+                    <li><a href="#/registration">Register</a></li>
                 </ul>
             </div>
             </simple-auth-unsecured>
@@ -69,16 +68,13 @@
         <ng-include src="'partials/newsfeed.tmpl.html'"></ng-include>
         </div>
         </div>
-        <div class="chat-mobile-icon" ng-click="toggleChatOverlay()"><i class="fa fa-comments fa-2x"></i></div>
+        <div class="chat-mobile-icon" ng-click="toggleChatOverlay()"><i class="fa fa-comments fa-4x"></i></div>
     </div>
     <!--NAvigation content end-->
     <div id="content" class="container">
          
         <div class="row">
-            
-            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                <div ng-view></div>
-            </div>
+            <div ng-view></div>
             <simple-auth-secured>
             <div class="col-lg-4 col-md-4 hidden-sm hidden-xs">
                 <ng-include src="'partials/newsfeed.tmpl.html'"></ng-include>
@@ -88,7 +84,7 @@
     </div>
     <div id="footer-main" class="container text-center">
         <footer class="footer navbar navbar-inverse">
-            <div class="row">
+            <!--<div class="row">
                 <div class="col-lg-12">
                     <div class="col-lg-3 col-md-6 col-xs-6">
                         <ul class="nav navbar-nav">
@@ -111,11 +107,11 @@
                         </ul>
                     </div>
                 </div>
-            </div>
+            </div>-->
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-offset-4 col-lg-4">
                     <ul class="nav navbar-nav">
-                        <li><a href="/">© 2013 Company Name.All rights reserved</a> </li>
+                        <li><a href="/">© 2015 Vertechs.All rights reserved</a> </li>
                     </ul>
                 </div>
             </div>
@@ -130,6 +126,7 @@
     <script src="javascripts/vendor/holder/holder.js"></script>
     <script src="javascripts/vendor/faye/faye-browser.js"></script>
     <script src="javascripts/vendor/jquery/jquery-1.11.1.js"></script>
+    <script src="javascripts/vendor/parsley/parsley.js"></script>
     <script src="javascripts/vendor/angular/angular.js"></script>
     <script src="javascripts/vendor/angular/angular-route.js"></script>
     <script src="javascripts/vendor/angular/angular-animate.js"></script>
@@ -137,6 +134,7 @@
     <script src="javascripts/mvc/directives/angular-chartist.js"></script>
     <script src="javascripts/mvc/app.js"></script>
     <script src="javascripts/mvc/directives/spinner.directive.js"></script>
+    <script src="javascripts/mvc/directives/checkpassword.directive.js"></script>
     <script src="javascripts/mvc/services/FayeClientFactory.js"></script>
     <script src="javascripts/mvc/services/TeamService.js"></script>
     <script src="javascripts/mvc/services/UserService.js"></script>
@@ -147,6 +145,7 @@
     <script src="javascripts/mvc/controllers/MobileChatController.js"></script>
     <script src="javascripts/mvc/controllers/NewsFeedController.js"></script>
     <script src="javascripts/mvc/controllers/AdminController.js"></script>
+    <script src="javascripts/mvc/controllers/RegistrationController.js"></script>
 </body>
 
 </html>

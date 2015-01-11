@@ -1,31 +1,41 @@
 <!-- Modal -->
+<div class="row">
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
   <div class="panel panel-primary">
-    <div class="panel-heading">
-      <h3 class="panel-title">Login</h3> 
-    </div>
   <div class="panel-body">
-    <form class="form" simple-auth-form auth-action="/authenticate">
+    <form class="form form-horizontal" simple-auth-form auth-action="/authenticate">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-offset-4 col-lg-4">
+          <div class="hidden-xs hidden-sm center-align">
+         <img src="images/sth-logo.png" width="250px" height="250px" />
+         </div>
+         <div class="visible-xs visible-sm center-align">
+         <img src="images/sth-logo.png" width="200px" height="200px" />
+         </div>
+        </div>
+        </div>
       <div class="form-group">
-        <label class="form-label col-xs-12 col-sm-12 col-md-3 col-lg-3" for ="userName" >
-        User Name
-        </label>
-        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-          <input simple-auth-username class="form-control" name="userName" />
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-offset-4 col-lg-4">
+          <input placeholder="Enter your email" simple-auth-username  class="form-control" name="userName" />
         </div>
       </div>
       <div class="form-group">
-        <label class="form-label col-xs-12 col-sm-12 col-md-3 col-lg-3" for ="userName" >
-        Password
-        </label>
-        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-          <input type="password" simple-auth-password class="form-control" name="password" />
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-offset-4 col-lg-4">
+          <input type="password" placeholder="Password" simple-auth-password class="form-control" name="password" />
         </div>
       </div>
       <div class="form-group">
-        <button simple-auth-login  type="button" class="btn btn-primary">Login</button>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-offset-4 col-lg-4">
+        <button simple-auth-login  type="button" class="btn btn-primary btn-block btn-lg">Login</button>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-offset-4 col-lg-4">
+         <span>Not yet a privateer?&nbsp;<a href="#/registration">ENLIST!</a></span>
+        </div>
       </div>
     </form>
   </div>
   </div>
+</div>
 </div>

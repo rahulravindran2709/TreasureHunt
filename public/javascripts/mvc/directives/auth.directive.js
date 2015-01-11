@@ -12,7 +12,7 @@
         AUTH_INVALID_CRED:'auth-invalid-credentials',
         AUTH_UNAUTHORIZED_ACCESS:'auth-unauthorized',
         AUTH_LOGOUT:'auth-logout'
-    })
+    }).value('UnsecuredRoutes',{routes:['/login','/registration']})
     /**
      * @name AuthController
      * @desc The main controller used for the authenticaion mechanism.This controller exposes methods for setting credentials which are used by child directives
@@ -33,7 +33,6 @@
             $window.sessionStorage.setItem('token',data.data.token);
             credentials.setUsername($scope.credentials.username);
             authService.getUserDetailsByUsername($scope.credentials.username,'UserService').then(function(data){
-                console.log('Success while getting the user data'+angular.toJson(data.data));
                  credentials.setCurrentUserData(data.data);
                  $window.sessionStorage.setItem('currentUser',angular.toJson(credentials.getCurrentUser()));
                  $rootScope.$broadcast(authEvents.AUTH_SUCCESS);
@@ -342,18 +341,42 @@
             response:responseLocal
         }
     }])
+    /**
+     * Config function to add the token httpinterceptor to http provider
+     * 
+     * 
+     * 
+     */ 
     .config(function($httpProvider){
          $httpProvider.interceptors.push('TokenAuthInterceptor');
     })
-    .run(['$rootScope','Credentials','$location','authEvents',function($rootScope,credentials,$location,authEvents) {
+    .run(['$rootScope','Credentials','$location','authEvents','UnsecuredRoutes',function($rootScope,credentials,$location,authEvents,unsecuredRoutes) {
         
+        var checkIfUnsecuredRoute=function(currentRoute,next){
+            
+            console.log('Value of this'+angular.toJson(next)+'+ '+currentRoute);
+           if(currentRoute===next)
+            {
+                console.log('Current route is unsecured'+currentRoute);
+                return true;
+           }
+        }
         $rootScope.$on('$routeChangeStart',function(event,next,current){
+            console.dir(unsecuredRoutes);
+            var unsecuredRouteArr=unsecuredRoutes.routes;
+            var result =false;
+           for(var index=0;index<unsecuredRouteArr.length;index++)
+           {
+               result=checkIfUnsecuredRoute(unsecuredRouteArr[index],next.$$route.originalPath);
+           }
+            if(!result)
+            {
             credentials.checkUserLoggedIn().then(function(){
             $rootScope.$broadcast(authEvents.AUTH_SUCCESS);
         },function(error){
 
             $location.path('/login');
-        });
+        });}
             
         });
     }]);

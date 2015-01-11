@@ -1,3 +1,10 @@
+/**
+ * @name TeamService
+ * @desc All CRUD services related to team based data
+ * 
+ * 
+ * 
+ */ 
 app.service('TeamService',['$http','$q',function($http,$q){
     console.log('In team service');
     this.getAllTeams = function(){
@@ -20,17 +27,17 @@ app.service('TeamService',['$http','$q',function($http,$q){
         var data = { labels: ['Step1', 'Step2', 'Step3', 'Step4', 'Step5', 'Step6'],
                       series: [
                       {
-                          name: 'Fibonacci sequence1',
+                          name: 'Team1',
                           data: [5, 4, 6.5, 4, 5, 7]
                         }
                         ,
                         {
-                          name: 'Fibonacci sequence2',
+                          name: 'Team2',
                           data: [3, 2, 9, 5, 4, 6]
                         }
                         ,
                         {
-                          name: 'Fibonacci sequence3',
+                          name: 'Team3',
                           data: [2, 1.5, 3, 4, 2, 2]
                         }
                         

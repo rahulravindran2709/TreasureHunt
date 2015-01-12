@@ -17,39 +17,71 @@
     {
         var linkFn=function(scope, elem, attrs,ngModel)
         {
+            var vm=this;
+            vm.ngModel=ngModel;
+            vm.scope=scope;
+            var config=scope.$eval(attrs.uniqueValidator);
             /*If the value is truly unique then we would want to set validation as passed*/
-            var successCallback=function successCallback(unique){
-                ngModel.setValidity('unique',true);
-            }
+            vm.successCallback=function successCallback(unique){
+                vm.ngModel.$setValidity('unique',true);
+                console.log('Value of validity success case'+vm.ngModel.$valid);
+            };
             /*Set validity as false to make sure we have a */
-            var errorCallback=function errorCallback(error){
-                 ngModel.setValidity('unique',false);
-            }
-            if (!ngModel || !elem.val()) return;
-            elem.bind('blur',function(){
+            vm.errorCallback=function errorCallback(error){
+                 ngModel.$setValidity('unique',false);
+                 console.log('Value of validity error case'+ngModel.$valid);
+            };
+            var blurHandler=function(event){
+                console.log('In blur'+ngModel);
+                 if (!ngModel || !elem.val()) return;
                 var currentValue=elem.val();
-                uniqueValidatorService.checkUniqueness(currentValue).then(successCallback,errorCallback);
-            })
+                uniqueValidatorService.checkUniqueness(config.url,config.property,currentValue).then(function(data){
+                    vm.successCallback(data);
+                    
+                },function(error){vm.errorCallback(error)});
+            }
+            elem.bind('blur',blurHandler.bind(vm));
     
         };
         return {
             restrict: 'A',
             scope:{},
             require:'ngModel',
-            replace:true,
             link: linkFn
-        }
+        };
     }
     ])
     .directive('uniqueErrorMessage',function(){
-        
+        var linkFn= function(scope, elem, attrs,ngModel){
+            scope.message='Email is in use';
+        };
          return {
-            restrict: 'A',
-            scope:{},
+            restrict: 'E',
             replace:true,
+            template:'<span ng-show="registrationForm.email.$dirty && registrationForm.email.$error.unique" >{{message}}</span>',
             link: linkFn
-        }
+        };
         
-        });
+        })
+        .service('UniqueValidatorService',['$http','$q',function($http,$q){
+            this.checkUniqueness=function checkUniqueness(url,property,value){
+                var getUrl=url+'?property='+property+'&value='+value;
+                var deferred = $q.defer();
+                $http.get(getUrl).then(function(response){
+                    var data=response.data;
+                    console.dir(data);
+                    if(data.exists){
+                        deferred.reject('Duplicate'+data.exists);
+                    }
+                    else{
+                        deferred.resolve();
+                    }
+                },function(error){
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+                
+            };
+        }]);
 
-})()
+})();

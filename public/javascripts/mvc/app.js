@@ -1,4 +1,4 @@
-var app=angular.module('TreasureHunt',['ngRoute','ngAnimate','angularSimpleAuth','angular-chartist']);
+var app=angular.module('TreasureHunt',['ngRoute','ngAnimate','angularSimpleAuth','angular-chartist','UniqueFieldValidatorModule']);
 app.constant('faye',Faye);
 app.constant('routeConstants',{
   LANDING_URL:'/',

@@ -13,6 +13,7 @@ var client = bayeux.getClient();
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var team = require('./routes/team');
+var unique = require('./routes/unique');
 
 //var message = require('./routes/message');
 
@@ -34,6 +35,7 @@ app.use('/', routes);
 //app.use('/api', expressJwt({secret: 'secret'}));
 app.use('/api/users', users);
 app.use('/api/team', team);
+app.use('/api/unique',unique);
 /* POST message*/
 app.post('/message', function(req, res) {
     app.get('bayeux').getClient().publish('/channel', { text: req.body.message });

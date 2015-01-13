@@ -13,10 +13,27 @@ app.controller('RegistrationController',['$scope','UserService','$location','Tea
     var registerSuccessCallback=function(){
         $location.path('/login');
     }
+    var registerFailureCallback=function(){
+        console.log('Error in registering the user');
+    }
     $scope.invokeRegister=function(){
         console.log('New user invoked');
-        console.dir($scope.newUser);
-        userService.createUser($scope.newUser).then(registerSuccessCallback);
+        
+        var userObj={};
+        userObj=angular.copy($scope.newUser);
+        if($scope.newUser.existingTeamName==='Add new team')
+        {
+            
+            userObj.teamName=$scope.newUser.newTeamName;
+            userObj.existingTeamName=undefined;
+        }
+        else{
+            userObj.teamName=$scope.newUser.existingTeamName;
+            userObj.newTeamName=undefined;
+            
+        }
+        console.dir(userObj);
+        userService.createUser(userObj).then(registerSuccessCallback);
     }
     $scope.checkAddNewTeamToggle=function(){
         if($scope.newUser.existingTeamName==='Add new team')
@@ -26,6 +43,7 @@ app.controller('RegistrationController',['$scope','UserService','$location','Tea
         }
         else
         {
+            $scope.newUser.newTeamName='';
              $scope.registration.isNewTeamSelected=false;
         }
     }

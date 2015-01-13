@@ -1,7 +1,23 @@
-app.controller('NewsFeedController',['$scope','NewsFeedService',function($scope,newsFeedService){
+/**
+ * @name NewsFeedController
+ * @desc This class maintains scope binding for the parts of the page responsible for the
+ *       chat functionality
+ * 
+ * 
+ */
+app.controller('NewsFeedController',['$scope','$filter','NewsFeedService',function($scope,$filter,newsFeedService){
     function init(){
-        $scope.publicFeeds = newsFeedService.getPublicFeeds();
+        $scope.currentChat="PublicChat";
+        $scope.publicFeeds = $filter('filter')(newsFeedService.getPublicFeeds(),{isPrivate:false});
+        $scope.privateFeeds = $filter('filter')(newsFeedService.getPublicFeeds(),{isPrivate:true});
         newsFeedService.subscribeToChannels('Team1',function(message){
+            console.log('Adding one comment'+angular.toJson(message.text));
+            $scope.$apply(function(){
+                $scope.privateFeeds.push(angular.fromJson(message.text));
+            });
+        
+        });
+        newsFeedService.subscribeToChannels('public',function(message){
             console.log('Adding one comment'+angular.toJson(message.text));
             $scope.$apply(function(){
                 $scope.publicFeeds.push(angular.fromJson(message.text));
@@ -10,6 +26,9 @@ app.controller('NewsFeedController',['$scope','NewsFeedService',function($scope,
         });
     }
     init();
+    $scope.setCurrentTab = function(value){
+        $scope.currentChat=value;
+    }
     $scope.postNewMessage = function(){
         var newMessage ={};
         newMessage.postTS = 'Just Now';

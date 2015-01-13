@@ -1,13 +1,34 @@
 <!--Feed section this will not change between views-->
 <div ng-controller="NewsFeedController" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h3 class="panel-title">News feed</h3> </div>
-        <div class="panel-body">
+        <ul id="messages-tab" class="nav nav-tabs" role="tablist">
+            <li class="active" ng-click="setCurrentTab('PublicChat')">
+                <a role="tab" data-toggle="tab">
+                NEWS FEED
+                </a>
+            </li>
+            <li ng-click="setCurrentTab('TeamChat')">
+                <a role="tab" data-toggle="tab">
+                TEAM CHAT
+                </a>
+            </li>
+        </ul>
+            <div class="panel-body">
             <div class="post-list">
-                <div ng-repeat="feed in publicFeeds" class="row feed-post">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> <a class="link poster-name" ng-bind="feed.poster"></a><span>-</span><a class="link poster-team" ng-bind="feed.teamName"></a>:<span class="post-text" ng-bind="feed.post"></span>
-                        <div class="post-ts" ng-bind="feed.postTS"></div>
+                <div ng-switch on="currentChat" class="tab">
+                    <div ng-switch-when="PublicChat" class="tab-item">
+                        <div ng-repeat="feed in publicFeeds" class="row feed-post repeat-animation">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> <a class="link poster-name" ng-bind="feed.poster"></a><span>-</span><a class="link poster-team" ng-bind="feed.teamName"></a>:<span class="post-text" ng-bind="feed.post"></span>
+                                <div class="post-ts" ng-bind="feed.postTS"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-switch-when="TeamChat" class="tab-item">
+                        <div ng-repeat="feed in privateFeeds" class="row feed-post repeat-animation">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> <a class="link poster-name" ng-bind="feed.poster"></a><span>-</span><a class="link poster-team" ng-bind="feed.teamName"></a>:<span class="post-text" ng-bind="feed.post"></span>
+                                <div class="post-ts" ng-bind="feed.postTS"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -20,7 +41,8 @@
                     </div>
                 </form>
             </div>
-        </div>
+            </div>
+        
     </div>
 </div>
 <!--Feed section this will not change between views-->

@@ -4,7 +4,7 @@
         <div class="panel-heading">
             <h3 class="panel-title">Register</h3> </div>
         <div class="panel-body">
-        <form name="registrationForm" id="registrationForm" class="form form-horizontal" ng-submit="invokeRegister()" novalidate>
+        <form name="registrationForm" id="registrationForm" class="form form-horizontal" ng-submit="loginform.$valid && invokeRegister()" novalidate>
             <!--Fake inputs to fool chrome-->
             <input style="display:none" type="text" name="fakeusernameremembered"/>
             <input style="display:none" type="password" name="fakepasswordremembered"/>
@@ -42,7 +42,7 @@
                     </label>
                     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
                         <div class="input-group"> 
-                            <input ng-model="newUser.phone" type="tel" class="form-control" name="phone" required />
+                            <input ng-model="newUser.phone" type="number" class="form-control" name="phone" required ng-maxlength="10" ng-minlength="10" />
                             <div class="input-group-addon">
                                 <i ng-show="registrationForm.phone.$valid" class="fa fa-check-square fa-2x correct-field"></i>
                             </div>
@@ -56,7 +56,7 @@
                     </label>
                     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
                         <div class="input-group"> 
-                            <input check-password show-password="registration.checkPasswordToggle" ng-model="newUser.password" type="password" class="form-control" name="password" required/>
+                            <input check-password show-password="registration.checkPasswordToggle" ng-model="newUser.password" type="password" class="form-control" name="password" required ng-minlength="8" pattern="/[^a-zA-Z0-9 ]/g"/>
                             <div ng-click="togglePasswordField()" class="input-group-addon"> 
                             <i ng-class="{'fa':true, 'fa-eye':true, 'fa-2x':true,'active-eye-icon':registration.checkPasswordToggle}"></i>
                             </div>
@@ -83,11 +83,6 @@
                 </div>
                 </div>
                      
-            </div>
-            <div class="form-group">
-                    
-                   
-                    
             </div>
             <div class="form-group">
                     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-lg-offset-3"> 

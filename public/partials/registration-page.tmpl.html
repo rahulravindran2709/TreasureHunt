@@ -4,19 +4,19 @@
         <div class="panel-heading">
             <h3 class="panel-title">Register</h3> </div>
         <div class="panel-body">
-        <form name="registrationForm" id="registrationForm" class="form form-horizontal" ng-submit="loginform.$valid && invokeRegister()" novalidate>
+        <form name="registrationForm" id="registrationForm" class="form form-horizontal" ng-submit="registrationForm.$valid && invokeRegister()" novalidate>
             <!--Fake inputs to fool chrome-->
             <input style="display:none" type="text" name="fakeusernameremembered"/>
             <input style="display:none" type="password" name="fakepasswordremembered"/>
             <!--Fake inputs end -->
             <div class="form-group">
-                <label class="form-label col-xs-12 col-sm-12 col-md-3 col-lg-offset-3 col-lg-3" for ="firstName"  >
+                <label class="form-label col-xs-12 col-sm-12 col-md-3 col-lg-offset-3 col-lg-3" for ="fullName"  >
                     Name
                     </label>
                     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
                         <div class="input-group">
-                            <input class="form-control" ng-model="newUser.firstName" name="firstName" placeholder="Your screen name" required />
-                            <div  class="input-group-addon"><i ng-show="registrationForm.firstName.$valid" class="fa fa-check-square fa-2x correct-field"></i></div>
+                            <input class="form-control" ng-model="newUser.fullName" name="fullName" placeholder="Your screen name" required />
+                            <div  class="input-group-addon"><i ng-show="registrationForm.fullName.$valid" class="fa fa-check-square fa-2x correct-field"></i></div>
                         </div>
                     </div>
             </div>
@@ -25,7 +25,6 @@
                     Email address
                     </label>
                     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-                        
                         <div class="input-group">
                             <input ng-model="newUser.email" type="email" class="form-control" name="email" required unique-validator="{property: 'email',url:'/api/unique'}" />
                             <unique-error-message></unique-error-message>
@@ -56,7 +55,7 @@
                     </label>
                     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
                         <div class="input-group"> 
-                            <input check-password show-password="registration.checkPasswordToggle" ng-model="newUser.password" type="password" class="form-control" name="password" required ng-minlength="8" pattern="/[^a-zA-Z0-9 ]/g"/>
+                            <input check-password show-password="registration.checkPasswordToggle" ng-model="newUser.password" type="password" class="form-control" name="password" required ng-minlength="8" />
                             <div ng-click="togglePasswordField()" class="input-group-addon"> 
                             <i ng-class="{'fa':true, 'fa-eye':true, 'fa-2x':true,'active-eye-icon':registration.checkPasswordToggle}"></i>
                             </div>

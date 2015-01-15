@@ -25,22 +25,17 @@ var Team = new Schema ({
 
 
 var User = new Schema({
-  firstName: {
+
+  fullName: {
     type: String,
     required: true,
     trim: true
   },
-  lastName: {
-    type: String,
-    required: true,
-    trim: true
+  password: {
+    type:String,
+    required:true,
+    trim:true
   },
-  userName: {
-    type: String,
-    required: true,
-    trim: true
-  },
-  password: String,
   email: {
     type: String,
     required: true,
@@ -64,7 +59,19 @@ var User = new Schema({
   }
 });
 
-
+var Comment = new Schema({
+  comment_id:{type: Number,
+    trim: true},
+  poster:{type: Schema.Types.ObjectId,
+    ref: 'User'},
+  postTS:{type: Date,
+    default: Date.now},
+  type:{type:String,
+      required:true},
+  teamName:{type: Schema.Types.ObjectId,
+    ref: 'Team'}    
+});
 
 exports.User = mongoose.model('User', User);
 exports.Team = mongoose.model('Team',Team);
+exports.Comment = mongoose.model('Comment',Comment);

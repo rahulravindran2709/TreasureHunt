@@ -22,6 +22,6 @@ app.service('UserService',['$http','$q',function($http,$q){
         return $http.get('/api/users/'+name+'/show');
     }
     this.createUser=function(user){
-        return $http.post('/api/users/new',user);
+        return $http.post('/api/users/',user);
     }
 }]);

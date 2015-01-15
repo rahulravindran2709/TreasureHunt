@@ -1,3 +1,13 @@
+/**
+ * @name RegistrationController
+ * @desc This controller will take care of the registration process of
+ * a new player
+ * 
+ * 
+ * 
+ * 
+ * 
+ */ 
 app.controller('RegistrationController',['$scope','UserService','$location','TeamService',function($scope,userService,$location,teamService){
     function init(){
        $scope.newUser={};
@@ -10,7 +20,8 @@ app.controller('RegistrationController',['$scope','UserService','$location','Tea
        })
     }
     init();
-    var registerSuccessCallback=function(){
+    var registerSuccessCallback=function(response){
+        console.log('In succcess callback');
         $location.path('/login');
     }
     var registerFailureCallback=function(){

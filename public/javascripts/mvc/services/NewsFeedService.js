@@ -11,16 +11,18 @@ app.service('NewsFeedService',['$http','$q','FayeClientFactory',function($http,$
    * @name getPublicFeeds
    * @desc Gets all the feeds which the current user can see including the team private chat
    */
-    this.getPublicFeeds = function(){
-        
+    this.getPublicFeeds = function(username){
+        var deferred=$q.defer();
         var publicFeeds = [
             {poster:'Rahul Ravindran',post:'lauda',postTS:'3 minutes ago',teamName:'Bucanneers',isPrivate:false},
             {poster:'Bimal Das',post:'chutiya',postTS:'2 minutes ago',teamName:'Gays',isPrivate:false},
         {poster:'Abdul Jaleel',post:'maire',postTS:'1 minutes ago',teamName:'Privateers',isPrivate:true},
         {poster:'Manish Lall',post:'bhosdke',postTS:'0 minutes ago',teamName:'Bucanneers',isPrivate:true}
         ];
-        
-       return publicFeeds;
+        $http.get('/api//user/'+username+'/chat').then(function(response){
+            deferred.resolve(response.data)
+        })
+       return deferred.promise;
     };
     this.getTeamFeed = function(userid){
         
@@ -30,7 +32,7 @@ app.service('NewsFeedService',['$http','$q','FayeClientFactory',function($http,$
    * @desc Post a comment to the news feed
    */
     this.postNewMessage = function(newMessage){
-        var url = 'https://treasurehunt-rahulravindran27091.c9.io/message';
+        var url = 'https://treasurehunt-rahulravindran27091.c9.io/api/users/'+newMessage.poster+'/chat';
         console.log('Click happened');
         var message = {message: newMessage};
         var ajaxPromise = $q.defer();

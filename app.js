@@ -6,11 +6,12 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var expressJwt=require('express-jwt');
-var jwt=require('jsonwebtoken');
+
 var Faye = require('faye');
 var bayeux = new Faye.NodeAdapter({ mount: '/faye', timeout: 45 });
 var client = bayeux.getClient();
 var routes = require('./routes/index');
+var auth = require('./routes/auth');
 var users = require('./routes/users');
 var team = require('./routes/team');
 var unique = require('./routes/unique');
@@ -36,34 +37,7 @@ app.use('/', routes);
 app.use('/api/users', users);
 app.use('/api/team', team);
 app.use('/api/unique',unique);
-/* POST message*/
-app.post('/message', function(req, res) {
-    app.get('bayeux').getClient().publish('/channel', { text: req.body.message });
-    console.log('broadcast message:' + req.body.message);
-    res.status(200).send({ message: 'Success' });
-});
-app.post('/authenticate',function(req,res){
-   
-  //TODO validate req.body.username and req.body.password
-  //if is invalid, return 401
-  if (!(req.body.username === 'r' && req.body.password === 'r')) {
-    res.send(401, 'Wrong user or password');
-    return;
-  }
-
-  var profile = {
-    first_name: 'R',
-    last_name: 'r',
-    email: 'john@doe.com',
-    username:'rahulr'
-
-  };
-
-  // We are sending the profile inside the token
-  var token = jwt.sign(profile, 'secret', { expiresInMinutes: 60*5 });
-
-  res.json({ token: token });
-});
+app.use('/authenticate',auth);
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');

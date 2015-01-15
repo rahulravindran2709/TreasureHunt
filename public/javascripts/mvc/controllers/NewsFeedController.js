@@ -5,7 +5,7 @@
  * 
  * 
  */
-app.controller('NewsFeedController',['$scope','$filter','NewsFeedService',function($scope,$filter,newsFeedService){
+app.controller('NewsFeedController',['$scope','$filter','NewsFeedService','Credentials',function($scope,$filter,newsFeedService,credentials){
     function init(){
         $scope.currentChat="PublicChat";
         $scope.publicFeeds = $filter('filter')(newsFeedService.getPublicFeeds(),{isPrivate:false});

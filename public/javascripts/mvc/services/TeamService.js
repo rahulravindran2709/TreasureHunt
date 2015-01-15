@@ -5,15 +5,28 @@
  * 
  * 
  */ 
-app.service('TeamService',['$http','$q',function($http,$q){
+window.angular.module('TreasureHunt').service('TeamService',['$http','$q','apiURLConstants',function($http,$q,apiURLConstants){
     console.log('In team service');
+    /**
+     * @name getAllTeams
+     * 
+     * 
+     */ 
     this.getAllTeams = function(){
         
         var teams = [   {teamName:'Bucanneers',cluesSolved:3},
                         {teamName:'Gays',cluesSolved:4},
-                        {teamName:'Pirates',cluesSolved:5}];       
-        var deferred=$q.defer();
-        deferred.resolve(teams);
+                        {teamName:'Pirates',cluesSolved:5}]; 
+                        
+         var deferred=$q.defer();               
+        $http.get(apiURLConstants.GET_ALL_TEAMS_URL).then(function(response){
+            teams=response.data;
+            deferred.resolve(teams);
+        },function(error){
+            deferred.reject(error);
+        });                
+        
+        
        return deferred.promise;
     };
     this.getClueForTeam=function(teamName){

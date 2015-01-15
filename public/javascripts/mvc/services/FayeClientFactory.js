@@ -1,4 +1,4 @@
-app.factory('FayeClientFactory',['faye',function(faye){
+window.angular.module('TreasureHunt').factory('FayeClientFactory',['faye',function(faye){
     var client = new faye.Client('/faye',{
 				timeout: 20
 			});

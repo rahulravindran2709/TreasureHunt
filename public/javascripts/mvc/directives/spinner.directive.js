@@ -1,4 +1,4 @@
-app.directive('spinner', function() {
+window.angular.module('TreasureHunt').directive('spinner', function() {
   return {
     restrict: 'AE',
     replace: false,

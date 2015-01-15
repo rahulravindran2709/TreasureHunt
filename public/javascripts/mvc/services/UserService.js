@@ -1,4 +1,4 @@
-app.service('UserService',['$http','$q',function($http,$q){
+window.angular.module('TreasureHunt').service('UserService',['$http','$q',function($http,$q){
     console.log('In user service');
     this.getUsers = function(){
         

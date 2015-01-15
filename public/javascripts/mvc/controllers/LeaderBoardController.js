@@ -4,7 +4,7 @@
  * 
  * 
  */ 
-app.controller('LeaderboardController',['$scope','TeamService',function($scope,teamService){
+window.angular.module('TreasureHunt').controller('LeaderboardController',['$scope','TeamService',function($scope,teamService){
     var getTeamScores=function(){
         teamService.getAllTeams().then(function(data){
             $scope.teamscores=data;

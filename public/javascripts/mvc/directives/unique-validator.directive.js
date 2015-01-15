@@ -13,7 +13,7 @@
      * 
      * 
      */ 
-    app.directive('uniqueValidator', ['UniqueValidatorService',function(uniqueValidatorService) 
+    window.angular.module('TreasureHunt').directive('uniqueValidator', ['UniqueValidatorService',function(uniqueValidatorService) 
     {
         var linkFn=function(scope, elem, attrs,ngModel)
         {

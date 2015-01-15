@@ -8,7 +8,7 @@
  * 
  * 
  */ 
-app.controller('RegistrationController',['$scope','UserService','$location','TeamService',function($scope,userService,$location,teamService){
+window.angular.module('TreasureHunt').controller('RegistrationController',['$scope','UserService','$location','TeamService',function($scope,userService,$location,teamService){
     function init(){
        $scope.newUser={};
        $scope.registration={isNewTeamSelected:false};

@@ -2,7 +2,7 @@
  * @name AdminController
  * @desc This serves as the controller for the admin landing page
  */
-app.controller('AdminController',['$scope','UserService','TeamService','$timeout',function($scope,userService,teamService,$timeout){
+window.angular.module('TreasureHunt').controller('AdminController',['$scope','UserService','TeamService','$timeout',function($scope,userService,teamService,$timeout){
     $scope.isHidden=true;
     /**
    * @name init

@@ -244,7 +244,6 @@
         var roles=[];
         var currentUserData='';
         var clone=function(data){
-            console.log('Cloned'+angular.toJson(data));
             username=data.username;
             roles=data.roles;
             currentUserData=data.data;
@@ -354,15 +353,12 @@
         
         var checkIfUnsecuredRoute=function(currentRoute,next){
             
-            console.log('Value of this'+angular.toJson(next)+'+ '+currentRoute);
            if(currentRoute===next)
             {
-                console.log('Current route is unsecured'+currentRoute);
                 return true;
            }
         }
         $rootScope.$on('$routeChangeStart',function(event,next,current){
-            console.dir(unsecuredRoutes);
             var unsecuredRouteArr=unsecuredRoutes.routes;
             var result =false;
            for(var index=0;index<unsecuredRouteArr.length;index++)

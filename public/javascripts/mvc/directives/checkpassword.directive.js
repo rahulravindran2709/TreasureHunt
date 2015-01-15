@@ -1,4 +1,4 @@
-app.directive('checkPassword', function() {
+window.angular.module('TreasureHunt').directive('checkPassword', function() {
   return {
     restrict: 'A',
     scope:{showPassword:'='},

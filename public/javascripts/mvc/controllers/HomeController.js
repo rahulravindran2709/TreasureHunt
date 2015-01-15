@@ -4,7 +4,7 @@
  * 
  * 
  */ 
-app.controller('HomeController',['$scope','$location','routeConstants','Credentials',function($scope,$location,routeConstants,credentials){
+window.angular.module('TreasureHunt').controller('HomeController',['$scope','$location','routeConstants','Credentials',function($scope,$location,routeConstants,credentials){
     function init(){
         
         var userData=credentials.getCurrentUser();

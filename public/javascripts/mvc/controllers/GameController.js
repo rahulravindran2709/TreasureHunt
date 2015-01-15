@@ -1,4 +1,4 @@
-app.controller('GameController',['$scope','TeamService','Credentials',function($scope,teamService,credentials){
+window.angular.module('TreasureHunt').controller('GameController',['$scope','TeamService','Credentials',function($scope,teamService,credentials){
     function init(){
         var userData=credentials.getCurrentUser();
         userData=userData.data;

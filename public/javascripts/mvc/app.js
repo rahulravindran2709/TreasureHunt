@@ -7,6 +7,10 @@ app.constant('routeConstants',{
   LEADERBOARD_URL:'/leaderboard',
   REGISTER_URL:'/registration'
 });
+app.constant('apiURLConstants',{
+  GET_ALL_TEAMS_URL:'/api/teams'
+  
+});
 app.config(['$routeProvider','$locationProvider','routeConstants',
   function($routeProvider,$locationProvider,routeConstants) {
     $routeProvider.

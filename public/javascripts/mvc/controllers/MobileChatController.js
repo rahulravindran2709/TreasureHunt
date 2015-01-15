@@ -1,4 +1,4 @@
-app.controller('MobileChatController',['$scope',function($scope,newsFeedService){
+window.angular.module('TreasureHunt').controller('MobileChatController',['$scope',function($scope,newsFeedService){
     function init(){
         $scope.showChat=false;
     }

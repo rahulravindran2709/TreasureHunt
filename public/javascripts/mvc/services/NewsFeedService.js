@@ -2,7 +2,7 @@
  * @name NewsFeedService
  * @desc This service provides CRUD functions for the news feed/comments section.Uses faye websocket library for the communication 
  */
-app.service('NewsFeedService',['$http','$q','FayeClientFactory',function($http,$q,fayeClientFactory){
+window.angular.module('TreasureHunt').service('NewsFeedService',['$http','$q','FayeClientFactory',function($http,$q,fayeClientFactory){
     this.subscribeToChannels=function(teamName,callback){
     fayeClientFactory.subscribe('/channel',callback);
         

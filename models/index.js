@@ -9,7 +9,8 @@ var Team = new Schema ({
   teamName: {
     type: String,
     trim: true,
-    max: 1000
+    max: 1000,
+    index:true
   },
   created: {
     type: Date,
@@ -39,7 +40,8 @@ var User = new Schema({
   email: {
     type: String,
     required: true,
-    trim: true
+    trim: true,
+    index:true
   },
   approvalStatus:{
       type:String,

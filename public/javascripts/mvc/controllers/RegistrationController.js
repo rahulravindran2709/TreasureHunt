@@ -32,7 +32,7 @@ window.angular.module('TreasureHunt').controller('RegistrationController',['$sco
         
         var userObj={};
         userObj=angular.copy($scope.newUser);
-        if($scope.newUser.existingTeamName==='Add new team')
+        if($scope.registration.isNewTeamSelected)
         {
             
             userObj.teamName=$scope.newUser.newTeamName;

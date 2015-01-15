@@ -8,8 +8,11 @@ app.constant('routeConstants',{
   REGISTER_URL:'/registration'
 });
 app.constant('apiURLConstants',{
-  GET_ALL_TEAMS_URL:'/api/teams'
-  
+  GET_ALL_TEAMS_URL:'/api/teams',
+  GET_ALL_USERS_URL:'/api/users/',
+  USER_ADD_URL_SUFFIX:'/show',
+  USER_CHAT_URL_SUFFIX:'/chat',
+  PUBLIC_MESSAGING_URL:'/public'
 });
 app.config(['$routeProvider','$locationProvider','routeConstants',
   function($routeProvider,$locationProvider,routeConstants) {
@@ -26,7 +29,7 @@ app.config(['$routeProvider','$locationProvider','routeConstants',
       })
       .when(routeConstants.GAME_URL, {
         templateUrl: 'partials/game-content.tmpl.html',
-        controller: 'HomeController'
+        controller: 'GameController'
       })
       .when(routeConstants.REGISTER_URL,{
         templateUrl: 'partials/registration-page.tmpl.html',

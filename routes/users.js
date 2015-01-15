@@ -1,4 +1,5 @@
 var express = require('express');
+var moment = require('moment');
 var models=require('../models/');
 var winston = require('winston');
 var jwt=require('jsonwebtoken');
@@ -34,18 +35,49 @@ router.get('/:id/show',function(req,res){
     })
 });
 router.get('/:id/chat',function(req,res){
-    winston.debug('Chat for id'+req.params.id);
+    winston.debug('Chat for id get'+req.params.id);
     commentModel.find({type:'PublicChat'},function(err,data){
       res.send(data);
     });
 });
+/**
+ * @desc Route handler for posting a chat message
+ * 
+ * 
+ * 
+ */ 
 router.post('/:id/chat',function(req,res){
-    winston.debug('Chat for id'+req.params.id);
-    express.get('bayeux').getClient().publish('/channel', { text: req.body.message });
-    winston.debug('broadcast message:' + req.body.message);
+    winston.debug('Chat for id post'+req.params.id);
+     winston.debug('broadcast message:' + JSON.stringify(req.body.message));
+     var message={};
+     message.postTS=moment().fromNow();
+     message.post=req.body.message.post;
+     message.poster=req.body.message.poster;
+     message.teamName=req.body.message.teamName;
+     var channel="/"+message.teamName;
+     
+     if(req.body.message.type==='PublicChat')
+     {
+       channel="/public";
+     }
+     winston.debug('VAlue of  broadcast channel'+channel);
+    req.bayeuxInstance.getClient().publish(channel, { text: message }).then(function(data) {
+  winston.log('Message published by server!'+data);
+}, function(error) {
+  winston.log('There was a problem: ' + error.message);
+});;
+    
     res.status(200).send({ message: 'Success' });
 
 });
+
+/***
+ * @desc Route handler for registering a new user
+ * 
+ * 
+ * 
+ * 
+ */ 
 router.post('/',function(req,res){
   var user= req.body;
   winston.debug('In registration'+JSON.stringify(req.body));

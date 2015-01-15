@@ -6,7 +6,6 @@
  * 
  */ 
 window.angular.module('TreasureHunt').service('TeamService',['$http','$q','apiURLConstants',function($http,$q,apiURLConstants){
-    console.log('In team service');
     /**
      * @name getAllTeams
      * 

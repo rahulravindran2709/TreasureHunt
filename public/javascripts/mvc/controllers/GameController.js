@@ -3,7 +3,7 @@ window.angular.module('TreasureHunt').controller('GameController',['$scope','Tea
         var userData=credentials.getCurrentUser();
         userData=userData.data;
         $scope.currentUser={username:userData.username,teamName:userData.teamName,steps:userData.stepsRemaining}
-        console.log('Value of credentials in home page'+angular.toJson(userData));
+        console.log('Value of credentials in game page'+angular.toJson(userData));
         teamService.getClueForTeam($scope.currentUser.teamName).then(getClueForTeamSuccessCallback,getClueErrorCallback);
     }
     init();

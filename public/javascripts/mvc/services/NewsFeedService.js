@@ -2,9 +2,9 @@
  * @name NewsFeedService
  * @desc This service provides CRUD functions for the news feed/comments section.Uses faye websocket library for the communication 
  */
-window.angular.module('TreasureHunt').service('NewsFeedService',['$http','$q','FayeClientFactory',function($http,$q,fayeClientFactory){
+window.angular.module('TreasureHunt').service('NewsFeedService',['$http','$q','FayeClientFactory','apiURLConstants',function($http,$q,fayeClientFactory,apiURLConstants){
     this.subscribeToChannels=function(teamName,callback){
-    fayeClientFactory.subscribe('/channel',callback);
+    fayeClientFactory.subscribe(teamName,callback);
         
     };
   /**
@@ -13,14 +13,10 @@ window.angular.module('TreasureHunt').service('NewsFeedService',['$http','$q','F
    */
     this.getPublicFeeds = function(username){
         var deferred=$q.defer();
-        var publicFeeds = [
-            {poster:'Rahul Ravindran',post:'lauda',postTS:'3 minutes ago',teamName:'Bucanneers',isPrivate:false},
-            {poster:'Bimal Das',post:'chutiya',postTS:'2 minutes ago',teamName:'Gays',isPrivate:false},
-        {poster:'Abdul Jaleel',post:'maire',postTS:'1 minutes ago',teamName:'Privateers',isPrivate:true},
-        {poster:'Manish Lall',post:'bhosdke',postTS:'0 minutes ago',teamName:'Bucanneers',isPrivate:true}
-        ];
-        $http.get('/api//user/'+username+'/chat').then(function(response){
+        $http.get(apiURLConstants.GET_ALL_USERS_URL+username+apiURLConstants.USER_CHAT_URL_SUFFIX).then(function(response){
             deferred.resolve(response.data)
+        },function(error){
+            deferred.reject([]);
         })
        return deferred.promise;
     };
@@ -32,7 +28,7 @@ window.angular.module('TreasureHunt').service('NewsFeedService',['$http','$q','F
    * @desc Post a comment to the news feed
    */
     this.postNewMessage = function(newMessage){
-        var url = 'https://treasurehunt-rahulravindran27091.c9.io/api/users/'+newMessage.poster+'/chat';
+        var url = 'http://treasurehunt-rahulravindran27091.c9.io/api/users/'+newMessage.poster+'/chat';
         console.log('Click happened');
         var message = {message: newMessage};
         var ajaxPromise = $q.defer();

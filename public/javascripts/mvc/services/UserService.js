@@ -1,5 +1,11 @@
-window.angular.module('TreasureHunt').service('UserService',['$http','$q',function($http,$q){
-    console.log('In user service');
+/***
+ * @name UserService
+ * @desc This service type handles all CRUD operations pertaining to user entity
+ * 
+ * 
+ */ 
+
+window.angular.module('TreasureHunt').service('UserService',['$http','$q','apiURLConstants',function($http,$q,apiURLConstants){
     this.getUsers = function(){
         
         var users = [{userName:'Rahul',teamName:'Bucanneers',approvalStatus:'Pending'},
@@ -11,6 +17,7 @@ window.angular.module('TreasureHunt').service('UserService',['$http','$q',functi
     };
     this.updateUser = function(userDetails){
         var deferred= $q.defer();
+        //TODO MAke this a http call
         self.setTimeout(function(){
             console.log('Herer');
             deferred.resolve(userDetails);
@@ -19,9 +26,9 @@ window.angular.module('TreasureHunt').service('UserService',['$http','$q',functi
         return deferred.promise;
     }
     this.getUserByUsername=function(name){
-        return $http.get('/api/users/'+name+'/show');
+        return $http.get(apiURLConstants.GET_ALL_USERS_URL+name+apiURLConstants.USER_ADD_URL_SUFFIX);
     }
     this.createUser=function(user){
-        return $http.post('/api/users/',user);
+        return $http.post(apiURLConstants.GET_ALL_USERS_URL,user);
     }
 }]);

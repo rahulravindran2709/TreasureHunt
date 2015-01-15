@@ -7,7 +7,6 @@ window.angular.module('TreasureHunt').directive('checkPassword', function() {
         elem.attr('type','password');
         //scope.fieldType='password';
         scope.$watch(function(scope){
-            console.log('In check password'+scope.showPassword);
             return scope.showPassword;
         },function(newVal){
             if(newVal)

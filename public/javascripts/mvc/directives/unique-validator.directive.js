@@ -4,7 +4,7 @@
  * 
  */
 (function(){
-    var app=angular.module('UniqueFieldValidatorModule',[]);
+    var app=window.angular.module('UniqueFieldValidatorModule',[]);
     /**
      * @name uniqueValidator
      * @desc Main directive which binds a blur event to the field and makes the service call
@@ -13,7 +13,7 @@
      * 
      * 
      */ 
-    window.angular.module('TreasureHunt').directive('uniqueValidator', ['UniqueValidatorService',function(uniqueValidatorService) 
+    app.directive('uniqueValidator', ['UniqueValidatorService',function(uniqueValidatorService) 
     {
         var linkFn=function(scope, elem, attrs,ngModel)
         {

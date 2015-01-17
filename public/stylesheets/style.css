@@ -201,9 +201,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffa84c', end
 	overflow-x:hidden;
 	overflow-y:auto;
 }
+.post-text :before{
+	content:' asdas';
+}
 .post-text{
-	color:#191919;
+	color:#666;
 	font-size: 12px;
+	font-family:Helvetica;
 }
 .post-ts{
 	color:#999;
@@ -236,14 +240,17 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffa84c', end
 	z-index: 100;
 	right: 0px;
 	bottom:5%;
-	background-color:#2196f3;
-	border:1px solid black;
-	border-radius:4px;
-	padding: 5px;
+
 	margin-right:15px;
 }
 .chat-mobile-icon .fa-comments{
 	color:#fff;
+}
+.chat-icon-div{
+		background-color:#2196f3;
+	border:1px solid black;
+	border-radius:4px;
+	padding: 5px;
 }
 .chat-mobile-container-open{
 	width:initial;
@@ -251,12 +258,41 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffa84c', end
 .chat-mobile-container-closed{
 	width:0px;
 }
+.unread-count{
+    position: relative;
+    background: red;
+    top: 8px;
+    left: 40px;
+    padding: 0;
+    border-radius: 8px;
+    height: 16px;
+    width: 16px;
+    color: #fff;
+    font-family: Arial;
+    font-size: 10px;
+    text-align: center;
+    }
 /*Chat messaging app styles end*/
 #labelpassCodeStep4{
 	margin-top: 5px;
 }
 
 /*Animations*/
+
+.unread-message{
+		-webkit-animation-name: shake;
+		-webkit-animation-duration: 1s;
+		-webkit-animation-timing-function: linear;
+		-webkit-animation-delay: 1s;
+		-webkit-animation-iteration-count: 1;
+		/* Standard syntax */
+		animation-name: shake;
+		animation-duration: 1s;
+		animation-timing-function: linear;
+		animation-delay: 1s;
+		animation-iteration-count: 1;
+}
+
 
 /* when hiding the thing */
 .chat-mobile-container.ng-hide-add         { 

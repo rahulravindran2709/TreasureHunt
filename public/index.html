@@ -24,6 +24,7 @@
 </head>
 
 <body>
+    
     <!--[if lt IE 7]> <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p> <![endif]-->
     <!-- Add your site or application content here -->
     <!--NAvigation content start-->
@@ -62,13 +63,22 @@
         </div>
     </div>
     <div class="container-fluid visible-xs visible-sm" ng-controller="MobileChatController">
-        <div ng-show="showChat" class="chat-mobile-overlay"></div>
+        <div ng-show="showChat" class="chat-mobile-overlay">
+            </div>
         <div ng-show="showChat" class="chat-mobile-container">
             <div class="row">
         <ng-include src="'partials/newsfeed.tmpl.html'"></ng-include>
         </div>
         </div>
-        <div class="chat-mobile-icon" ng-click="toggleChatOverlay()"><i class="fa fa-comments fa-4x"></i></div>
+        <div class="chat-mobile-icon" toggle-animation watch-this="unreadCount" ng-click="toggleChatOverlay()">
+            <div class="unread-count" ng-show="unreadCount>0">
+            <span ng-bind="unreadCount"></span>
+            </div>
+            <div class="chat-icon-div">
+                <i class="fa fa-comments fa-4x"></i>
+            </div>
+        
+        </div>
     </div>
     <!--NAvigation content end-->
     <div id="content" class="container">
@@ -84,30 +94,6 @@
     </div>
     <div id="footer-main" class="container text-center">
         <footer class="footer navbar navbar-inverse">
-            <!--<div class="row">
-                <div class="col-lg-12">
-                    <div class="col-lg-3 col-md-6 col-xs-6">
-                        <ul class="nav navbar-nav">
-                            <li><a href="#">About us</a> </li>
-                        </ul>
-                    </div>
-                    <div class="col-lg-3  col-md-6 col-xs-6">
-                        <ul class="nav navbar-nav">
-                            <li><a href="#">Blog</a> </li>
-                        </ul>
-                    </div>
-                    <div class=" col-lg-3 col-md-6 col-xs-6">
-                        <ul class="nav navbar-nav">
-                            <li><a href="#">Terms of Service</a> </li>
-                        </ul>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-xs-6">
-                        <ul class="nav navbar-nav">
-                            <li><a href="#">Privacy</a> </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>-->
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-offset-4 col-lg-4">
                     <ul class="nav navbar-nav">
@@ -124,6 +110,7 @@
     <script src="javascripts/vendor/bootstrap/bootstrap.js"></script>
     <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
     <script src="javascripts/vendor/holder/holder.js"></script>
+    <script src="javascripts/vendor/moment/moment.js"></script>
     <script src="javascripts/vendor/faye/faye-browser.js"></script>
     <script src="javascripts/vendor/jquery/jquery-1.11.1.js"></script>
     <script src="javascripts/vendor/parsley/parsley.js"></script>
@@ -131,9 +118,12 @@
     <script src="javascripts/vendor/angular/angular-route.js"></script>
     <script src="javascripts/vendor/angular/angular-animate.js"></script>
     <script src="javascripts/mvc/directives/auth.directive.js"></script>
+    <script src="javascripts/mvc/directives/scroller.directive.js"></script>
     <script src="javascripts/mvc/directives/angular-chartist.js"></script>
-     <script src="javascripts/mvc/directives/unique-validator.directive.js"></script>
+    <script src="javascripts/mvc/directives/toggle-animation.directive.js"></script>
+    <script src="javascripts/mvc/directives/unique-validator.directive.js"></script>
     <script src="javascripts/mvc/app.js"></script>
+    <script src="javascripts/mvc/filters/MomentFilter.js"></script>
     <script src="javascripts/mvc/directives/spinner.directive.js"></script>
     <script src="javascripts/mvc/directives/checkpassword.directive.js"></script>
     <script src="javascripts/mvc/services/FayeClientFactory.js"></script>
@@ -143,7 +133,7 @@
     <script src="javascripts/mvc/controllers/NavController.js"></script>
     <script src="javascripts/mvc/controllers/HomeController.js"></script>
     <script src="javascripts/mvc/controllers/LeaderBoardController.js"></script>
-    <script src="javascripts/mvc/controllers/LeaderBoardController.js"></script>
+    <script src="javascripts/mvc/controllers/GameController.js"></script>
     <script src="javascripts/mvc/controllers/MobileChatController.js"></script>
     <script src="javascripts/mvc/controllers/NewsFeedController.js"></script>
     <script src="javascripts/mvc/controllers/AdminController.js"></script>

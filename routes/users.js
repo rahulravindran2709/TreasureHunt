@@ -20,7 +20,7 @@ router.get('/', function(req, res) {
  
 });
 router.get('/:id/show',function(req,res){
-    winston.log('Request for id'+req.params.id);
+    winston.debug('Request for user details of id'+req.params.id);
     userModel.findOne({email:req.params.id}).populate('team','teamName').sort('approvalStatus').exec(function(err,data){
       if(err)
       {
@@ -31,13 +31,31 @@ router.get('/:id/show',function(req,res){
       {
         res.send(500,"No user was found");
       }
-      res.send(data);
+      //data.teamName=data.team.teamName;
+     // data.team={};
+     var user=
+     {
+    fullName: data.fullName,
+    approvalStatus: data.approvalStatus,
+    email: data.email,
+    teamName: data.team.teamName};
+      winston.debug('Request for user details of id'+JSON.stringify(data));
+      res.send(user);
     })
 });
 router.get('/:id/chat',function(req,res){
     winston.debug('Chat for id get'+req.params.id);
-    commentModel.find({type:'PublicChat'},function(err,data){
-      res.send(data);
+    commentModel.find({type:'public'}).populate('teamName','teamName').populate('poster','fullName').sort('postTS').exec(function(err,data){
+      var output=data.map(function(elem){
+        var newElem={};
+        newElem.poster=elem.poster.fullName;
+        newElem.type=elem.type;
+        newElem.post=elem.post;
+        newElem.teamName=elem.teamName.teamName;
+        newElem.postTS=elem.postTS;
+        return newElem
+      });
+      res.send(output);
     });
 });
 /**
@@ -49,25 +67,55 @@ router.get('/:id/chat',function(req,res){
 router.post('/:id/chat',function(req,res){
     winston.debug('Chat for id post'+req.params.id);
      winston.debug('broadcast message:' + JSON.stringify(req.body.message));
+     /*Prepare broadcast message*/
      var message={};
      message.postTS=moment().fromNow();
      message.post=req.body.message.post;
      message.poster=req.body.message.poster;
      message.teamName=req.body.message.teamName;
      var channel="/"+message.teamName;
-     
+     var type='team';
+     /*Check if the message type is public*/
      if(req.body.message.type==='PublicChat')
      {
        channel="/public";
+       type="public"
      }
-     winston.debug('VAlue of  broadcast channel'+channel);
-    req.bayeuxInstance.getClient().publish(channel, { text: message }).then(function(data) {
-  winston.log('Message published by server!'+data);
-}, function(error) {
-  winston.log('There was a problem: ' + error.message);
-});;
+     winston.debug('Value of  broadcast channel'+channel);
+     userModel.findOne({email:req.params.id}).populate('team').exec(function(err,resp){
+       if(err)
+       {
+         res.send(500,"Erro while user was being found");
+         return;
+       }
+       if(null===resp)
+          {
+             res.send(500,"No user was found");
+              return;
+          }
+       /*Use the user details to populate the comment fields*/
+       winston.debug('User details obtained '+JSON.stringify(resp));
+        var newComment = new commentModel({poster:resp._id,type:type,post:message.post,teamName:resp.team._id});
+        /*Persist to db*/
+        newComment.save(function(err,data){
+          if(err)
+          {
+            res.send(500,"Error while saving comment");
+            return;
+            
+          }
+          
+          /*Broadcast to peers using faye*/
+          req.bayeuxInstance.getClient().publish(channel, { text: message }).then(function(data) {
+          winston.debug('Message published by server!');
+          res.status(200).send({ message: 'Success' });
+          }, function(error) {
+            winston.debug('There was a problem: ' + error.message);
+          });
+        })
+       
+     });
     
-    res.status(200).send({ message: 'Success' });
 
 });
 

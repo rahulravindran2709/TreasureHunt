@@ -10,7 +10,7 @@ window.angular.module('TreasureHunt').controller('HomeController',['$scope','$lo
         var userData=credentials.getCurrentUser();
         userData=userData.data;
         console.log('Value of credentials in home page'+angular.toJson(userData));
-        $scope.user={username:userData.fullName,teamName:userData.team.teamName,steps:userData.stepsRemaining}
+        $scope.user={username:userData.fullName,teamName:userData.teamName,steps:userData.stepsRemaining}
         $scope.isClueHidden=false;
         $scope.totalSteps=userData.stepsTotal;
         $scope.user.progress=($scope.totalSteps-$scope.user.steps)*(100/$scope.totalSteps)+'%';

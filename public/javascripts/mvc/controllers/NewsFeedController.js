@@ -10,10 +10,10 @@ window.angular.module('TreasureHunt').controller('NewsFeedController',['$scope',
         $scope.currentChat="PublicChat";
         var userData=credentials.getCurrentUser();
         userData=userData.data;
-        $scope.user={username:userData.fullName,teamName:userData.team.teamName};
-        newsFeedService.getPublicFeeds().then(function(data){
-            $scope.publicFeeds = $filter('filter')(data,{isPrivate:false});
-            $scope.privateFeeds = $filter('filter')(data,{isPrivate:true});
+        $scope.user={username:userData.fullName,teamName:userData.teamName,email:userData.email};
+        newsFeedService.getPublicFeeds($scope.user.email).then(function(data){
+            $scope.publicFeeds = $filter('filter')(data,{type:'public'});
+            $scope.privateFeeds = $filter('filter')(data,{type:'team'});
         });
         /*TODO This team channel is created just by appending the teamname in plain text.Might want to make it more secure and unaccesible to other teams 
         just by changing teamnames*/
@@ -21,6 +21,7 @@ window.angular.module('TreasureHunt').controller('NewsFeedController',['$scope',
         console.log('team'+teamChannel);
         newsFeedService.subscribeToChannels(teamChannel,function(message){
             console.log('Adding one comment team chat'+angular.toJson(message.text));
+            $scope.$emit('new-message');
             $scope.$apply(function(){
                 $scope.privateFeeds.push(angular.fromJson(message.text));
             });
@@ -29,6 +30,7 @@ window.angular.module('TreasureHunt').controller('NewsFeedController',['$scope',
         var publicChannel=apiURLConstants.PUBLIC_MESSAGING_URL;
         newsFeedService.subscribeToChannels(publicChannel,function(message){
             console.log('Adding one comment public chat'+angular.toJson(message.text));
+            $scope.$emit('new-message');
             $scope.$apply(function(){
                 $scope.publicFeeds.push(angular.fromJson(message.text));
             });
@@ -41,7 +43,7 @@ window.angular.module('TreasureHunt').controller('NewsFeedController',['$scope',
     }
     $scope.postNewMessage = function(){
         var newMessage ={};
-        newMessage.poster = $scope.user.username;
+        newMessage.poster = $scope.user.email;
         newMessage.teamName = $scope.user.teamName;
         newMessage.post = $scope.newMessage.post;
         newMessage.type=$scope.currentChat;

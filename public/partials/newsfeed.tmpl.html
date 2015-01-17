@@ -14,19 +14,26 @@
             </li>
         </ul>
             <div class="panel-body">
-            <div class="post-list">
+            <div class="post-list" scroller="bottom">
                 <div ng-switch on="currentChat" class="tab">
                     <div ng-switch-when="PublicChat" class="tab-item">
                         <div ng-repeat="feed in publicFeeds" class="row feed-post repeat-animation">
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> <a class="link poster-name" ng-bind="feed.poster"></a><span>-</span><a class="link poster-team" ng-bind="feed.teamName"></a>:<span class="post-text" ng-bind="feed.post"></span>
-                                <div class="post-ts" ng-bind="feed.postTS"></div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> 
+                            <a class="link poster-name" ng-bind="feed.poster"></a>
+                            <span>-</span><a class="link poster-team" ng-bind="feed.teamName"></a>:&nbsp;
+                            <span class="post-text" ng-bind="feed.post"></span>
+                                <div class="post-ts" ng-bind="(feed.postTS | moment)"></div>
                             </div>
                         </div>
                     </div>
                     <div ng-switch-when="TeamChat" class="tab-item">
                         <div ng-repeat="feed in privateFeeds" class="row feed-post repeat-animation">
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> <a class="link poster-name" ng-bind="feed.poster"></a><span>-</span><a class="link poster-team" ng-bind="feed.teamName"></a>:<span class="post-text" ng-bind="feed.post"></span>
-                                <div class="post-ts" ng-bind="feed.postTS"></div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> 
+                            <a class="link poster-name" ng-bind="feed.poster"></a>
+                            <span>-</span>
+                            <a class="link poster-team" ng-bind="feed.teamName"></a>:&nbsp;
+                            <span class="post-text" ng-bind="feed.post"></span>
+                                <div class="post-ts" ng-bind="(feed.postTS | moment)"></div>
                             </div>
                         </div>
                     </div>

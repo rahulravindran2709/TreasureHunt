@@ -70,6 +70,9 @@ var Comment = new Schema({
     default: Date.now},
   type:{type:String,
       required:true},
+  post:{type: String,
+    required: true,
+    trim: true},    
   teamName:{type: Schema.Types.ObjectId,
     ref: 'Team'}    
 });

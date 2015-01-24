@@ -1,4 +1,7 @@
 /**Reusable alignment styles*/
+.mar-bot-10{
+	margin-bottom:10px;
+}
 .pad-rt-0{
 	padding-right:0px !important;
 }
@@ -8,7 +11,12 @@
 .marbot10{
 	margin-bottom: 10px;
 }
-
+.pad-top-5{
+	padding-top:5px;
+}
+.center-align-text{
+	text-align: center;
+}
 
 /*Reusable alignment styles*/
 /* Placeholder color global */
@@ -439,6 +447,36 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffa84c', end
 	color:#2196f3;
 }
 /*Registration page styles end*/
+
+
+/*Admin page clues styles*/
+.clue-box{
+	box-sizing:border-box;
+	-webkit-box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	border:1px solid #666;
+	-webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+	box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+	font-family:Helvetica;
+	margin-bottom:20px;
+	float: left;
+}
+.clue-box > .header{
+	background-color:#2196f3;
+	float:left;
+	width:100%;
+	color:#fff;
+	text-align:center;
+}
+.clue-details{
+	padding:5px;
+	float:left;
+}
+.clue-box > .header  h6{
+	color:#fff;
+}
+/*Admin page clues styles end*/
 
 @media (max-width: 767px) {
 	

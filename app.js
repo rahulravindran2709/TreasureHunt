@@ -7,6 +7,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var expressJwt=require('express-jwt');
 var Faye = require('faye');
+var multer = require('multer');
 var bayeux = new Faye.NodeAdapter({ mount: '/faye', timeout: 45 });
 var client = bayeux.getClient();
 var routes = require('./routes/index');
@@ -14,6 +15,7 @@ var auth = require('./routes/auth');
 var users = require('./routes/users');
 var team = require('./routes/team');
 var unique = require('./routes/unique');
+var clues = require('./routes/clues');
 
 //var message = require('./routes/message');
 
@@ -31,6 +33,12 @@ app.use(favicon());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
+app.use(multer({
+  dest: './uploads/',
+  rename: function (fieldname, filename) {
+    return filename.replace(/\W+/g, '-').toLowerCase() + Date.now()
+  }
+}))
 app.use(cookieParser());
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -41,6 +49,7 @@ app.use('/', routes);
 app.use('/api/users', users.bind(bayeux));
 app.use('/api/teams', team);
 app.use('/api/unique',unique);
+app.use('/api/clues',clues);
 app.use('/authenticate',auth);
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {

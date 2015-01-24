@@ -5,14 +5,18 @@ app.constant('routeConstants',{
   GAME_URL:'/game',
   LOGIN_URL:'/login',
   LEADERBOARD_URL:'/leaderboard',
-  REGISTER_URL:'/registration'
+  REGISTER_URL:'/registration',
+  ADMIN_CLUES_URL:'/admin/clues',
+  ADMIN_LANDING_URL:'/admin/'
 });
 app.constant('apiURLConstants',{
-  GET_ALL_TEAMS_URL:'/api/teams',
+  GET_ALL_TEAMS_URL:'/api/teams/',
   GET_ALL_USERS_URL:'/api/users/',
   USER_ADD_URL_SUFFIX:'/show',
   USER_CHAT_URL_SUFFIX:'/chat',
-  PUBLIC_MESSAGING_URL:'/public'
+  PUBLIC_MESSAGING_URL:'/public',
+  TEAMS_CLUE_SUFFIX:'/game',
+  GET_ALL_CLUES:'/api/clues'
 });
 app.config(['$routeProvider','$locationProvider','routeConstants',
   function($routeProvider,$locationProvider,routeConstants) {
@@ -34,6 +38,10 @@ app.config(['$routeProvider','$locationProvider','routeConstants',
       .when(routeConstants.REGISTER_URL,{
         templateUrl: 'partials/registration-page.tmpl.html',
         controller: 'RegistrationController'
+      })
+      .when(routeConstants.ADMIN_CLUES_URL,{
+        templateUrl: 'partials/admin-clues.tmpl.html',
+        controller: 'AdminCluesController'
       })
       .otherwise({
         redirectTo: routeConstants.LANDING_URL

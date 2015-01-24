@@ -31,6 +31,22 @@ window.angular.module('TreasureHunt').service('TeamService',['$http','$q','apiUR
     this.getClueForTeam=function(teamName){
         return $http.get('/api/team'+teamName+'/game')
     }
+    /**
+     * @name getSolvedClues
+     * @desc This method will get all the solved clues by a given team
+     * 
+     * 
+     * 
+     */ 
+    this.getSolvedClues=function(teamName){
+            var deferred = $q.defer();
+            $http.get(apiURLConstants.GET_ALL_TEAMS_URL+teamName+apiURLConstants.TEAMS_CLUE_SUFFIX).then(function(response){
+                deferred.resolve(response.data);
+            },function(error){
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
     this.solveClueByTeam=function(teamName){
         return $http.put('/api/team'+teamName+'/game')
     }

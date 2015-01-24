@@ -1,4 +1,7 @@
 var mongoose = require('mongoose');
+var db = require('../db');
+var connection= db.connection;
+var autoIncrement = db.autoIncrement;
 var Schema = mongoose.Schema;
 
 var Team = new Schema ({
@@ -77,6 +80,29 @@ var Comment = new Schema({
     ref: 'Team'}    
 });
 
-exports.User = mongoose.model('User', User);
-exports.Team = mongoose.model('Team',Team);
-exports.Comment = mongoose.model('Comment',Comment);
+
+var Clue = new Schema({
+ clue_img:{type:String,required:true} ,
+ map_img:{type:String,required:true},
+ name:{type:String,required:true},
+ passCode:{type:String,required:true},
+ order:{type:Number,required:true}
+ 
+});
+Clue.plugin(autoIncrement.plugin, 'Clue');  
+
+
+var ClueTeam = new Schema({
+  clue:{type:Number,ref:'Clue'},
+  team:{type: Schema.Types.ObjectId,ref:'Team',
+  required:true},
+  solvedTS: {
+    type: Date,
+    default: Date.now
+  }
+});
+exports.User = connection.model('User', User);
+exports.Team = connection.model('Team',Team);
+exports.Comment = connection.model('Comment',Comment);
+exports.Clue = connection.model('Clue',Clue);
+exports.ClueTeam = connection.model('ClueTeam',ClueTeam);

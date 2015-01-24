@@ -3,4 +3,8 @@ var db = mongoose.connection;
 db.on('error', console.error);
 db.once('open', function() {
 });
-mongoose.connect('mongodb://localhost:27017/treasure')
+var connection=mongoose.createConnection('mongodb://localhost:27017/treasure')
+var autoIncrement = require('mongoose-auto-increment');
+autoIncrement.initialize(connection);
+exports.connection=connection;
+exports.autoIncrement=autoIncrement;

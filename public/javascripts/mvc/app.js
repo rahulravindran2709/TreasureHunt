@@ -16,7 +16,7 @@ app.constant('apiURLConstants',{
   USER_CHAT_URL_SUFFIX:'/chat',
   PUBLIC_MESSAGING_URL:'/public',
   TEAMS_CLUE_SUFFIX:'/game',
-  GET_ALL_CLUES:'/api/clues'
+  GET_ALL_CLUES:'/api/clues/'
 });
 app.config(['$routeProvider','$locationProvider','routeConstants',
   function($routeProvider,$locationProvider,routeConstants) {

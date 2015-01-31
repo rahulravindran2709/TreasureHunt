@@ -472,6 +472,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffa84c', end
 .clue-details{
 	padding:5px;
 	float:left;
+	min-height:174px;
 }
 .clue-box > .header  h6{
 	color:#fff;

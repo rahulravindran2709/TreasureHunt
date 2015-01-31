@@ -48,6 +48,11 @@ router.put('/',function(req,res,next){
     
     
 });
+
+router.delete('/:id',function(req,res,next){
+    winston.debug('Deleting id'+req.params.id);
+    res.json({message:'Success'});
+})
 /**
  * @name copyFile
  * 

@@ -39,8 +39,10 @@
         $scope.confirmDelete=function(clue){
             console.log('Confirm called'+angular.toJson(clue)+' index of '+$scope.clues.indexOf(clue));
             var removeClueFromList=function(){
+                console.log('Length of removeClueFromList'+$scope.clues.length);
                  $scope.clues.splice($scope.clues.indexOf(clue),1);
-            }
+                 console.log('Length of clues'+$scope.clues.length);
+            };
             cluesService.deleteClue(clue._id).then(removeClueFromList,function(){
                 console.log('Error occured');
             });

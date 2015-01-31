@@ -21,12 +21,13 @@
         }
         this.deleteClue=function(clue){
             var deferred = $q.defer();
-            $http.delete(apiURLConstants.GET_ALL_CLUES+'?clue_id='+clue).then(function(response){
+            $http.delete(apiURLConstants.GET_ALL_CLUES+clue).then(function(response){
                 
                 deferred.resolve(response.data);
             },function(error){
                 deferred.reject(error);
             });
+            return deferred.promise;
         }
         this.addClue=function(clue){
             console.log('In add clue');

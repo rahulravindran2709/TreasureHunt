@@ -1,4 +1,4 @@
-(function (){
+(function (angular){
     window.angular.module('TreasureHunt').controller('AdminCluesController',['$scope','CluesService',function AdminCluesController($scope,cluesService){
         
         var populateClues = function(clues){
@@ -11,9 +11,13 @@
         }
         var saveSucesss=function(data){
             delete this.clue.isNew;
+            this.clue.isEditable=false;
+            console.log('File upload complete');
         }
         function init(){
             $scope.newClue={};
+            $scope.modalOptions={isModalHidden:true};
+            $scope.deletedClue={};
             cluesService.getAllClues().then(populateClues);
         }
         init();
@@ -27,7 +31,20 @@
             clue.isEditable=true;
         }
         $scope.removeClue=function(clue){
-            $scope.clues.splice($scope.clues.indexOf(clue),1);
+            console.log('delete called'+ angular.toJson($scope.modalOptions));
+            $scope.modalOptions={isModalHidden:false};
+            $scope.deletedClue=clue;
+            //$scope.clues.splice($scope.clues.indexOf(clue),1);
+        }
+        $scope.confirmDelete=function(clue){
+            console.log('Confirm called'+angular.toJson(clue)+' index of '+$scope.clues.indexOf(clue));
+            var removeClueFromList=function(){
+                 $scope.clues.splice($scope.clues.indexOf(clue),1);
+            }
+            cluesService.deleteClue(clue._id).then(removeClueFromList,function(){
+                console.log('Error occured');
+            });
+            
         }
         /***
          * @name saveClue
@@ -48,4 +65,4 @@
         }
         
     }]);
-})();
+})(window.angular);

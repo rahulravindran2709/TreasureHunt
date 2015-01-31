@@ -19,6 +19,15 @@
             });
             return deferred.promise;
         }
+        this.deleteClue=function(clue){
+            var deferred = $q.defer();
+            $http.delete(apiURLConstants.GET_ALL_CLUES+'?clue_id='+clue).then(function(response){
+                
+                deferred.resolve(response.data);
+            },function(error){
+                deferred.reject(error);
+            });
+        }
         this.addClue=function(clue){
             console.log('In add clue');
             var deferred = $q.defer();
@@ -28,6 +37,7 @@
             fd.append('order',clue.order);
             fd.append('map_img',clue.map_img);
             fd.append('clue_img',clue.clue_img);
+            fd.append('passCode',clue.passcode);
             var options={transformRequest:angular.identity,
                 headers:{'Content-Type':undefined}};
             $http.post(apiURLConstants.GET_ALL_CLUES,fd,options).then(function sucessCallback(response) {

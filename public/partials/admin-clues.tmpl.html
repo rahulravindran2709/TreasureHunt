@@ -1,4 +1,5 @@
 <div id="admin-clues-content" class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+    <!-- Button trigger modal -->
     <div class="panel panel-primary center-align-text">
         <h2>Clues Management</h2>
         <div class="panel-body">
@@ -23,41 +24,41 @@
                             </div>    
                         </div>
                         <div class="clue-details">
-                            <div class="row">
-                                <div class="col-lg-4 col-md-3 col-xs-12 col-sm-12">
+                            <div class="row form-group">
+                                <div class="col-lg-5 col-md-3 col-xs-12 col-sm-12">
                                 Map Image
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-5">
                                     
-                                <span class="clue-form-element" ng-hide="clue.isEditable" ng-bind="clue.map_img">http://google.com/map.jpg</span>
+                                <a class="clue-form-element" ng-hide="clue.isEditable" ng-bind="clue.map_img" ng-href="{{clue.map_img}}"></a>
                                 <input class="clue-form-element"  file-handler="clue.map_img" type="file" ng-show="clue.isEditable"  />
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-lg-4 col-md-3 col-xs-12 col-sm-12">
+                            <div class="row  form-group">
+                                <div class="col-lg-5 col-md-3 col-xs-12 col-sm-12">
                                 Clue Image
                                 </div>
-                                <div class="col-lg-6">
-                                <span class="clue-form-element" ng-hide="clue.isEditable" ng-bind="clue.clue_img">http://google.com/clue.jpg</span>
+                                <div class="col-lg-5">
+                                <a class="clue-form-element" ng-hide="clue.isEditable" ng-bind="clue.clue_img" ng-href="{{clue.clue_img}}"></a>
                                 <input class="clue-form-element" file-handler="clue.clue_img" type="file" ng-show="clue.isEditable" />
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-lg-4 col-md-3 col-xs-12 col-sm-12">
+                            <div class="row  form-group">
+                                <div class="col-lg-5 col-md-3 col-xs-12 col-sm-12">
                                 PassCode
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-5">
                                 <span class="clue-form-element" ng-hide="clue.isEditable" ng-bind="clue.passcode">passcode</span>
-                                <input  class="clue-form-element" type="password" ng-show="clue.isEditable" ng-model="clue.passcode" />
+                                <input  class="form-control clue-form-element" type="password" ng-show="clue.isEditable" ng-model="clue.passcode" />
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-lg-4  col-md-3 col-xs-12 col-sm-12">
+                            <div class="row  form-group">
+                                <div class="col-lg-5  col-md-3 col-xs-12 col-sm-12">
                                 Order
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-5">
                                 <span class="clue-form-element" ng-hide="clue.isEditable" ng-bind="clue.order">1</span>
-                                <input class="clue-form-element" type="number" ng-show="clue.isEditable" ng-model="clue.order" />
+                                <input class="form-control clue-form-element" type="number" ng-show="clue.isEditable" ng-model="clue.order" />
                                 </div>
                             </div>
                         </div>
@@ -66,4 +67,5 @@
             </div>
         </div>
     </div>
+    <confirm-modal modal-header="Confirm delete?" show-toggle='modalOptions.isModalHidden' confirm-call="confirmDelete(data)" reject-call="cancelDelete()" data="deletedClue"></confirm-modal>
 </div>

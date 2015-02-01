@@ -1,13 +1,16 @@
 <div id="admin-clues-content" class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
     <!-- Button trigger modal -->
     <div class="panel panel-primary center-align-text">
-        <h2>Clues Management</h2>
-        <div class="panel-body">
-            <div class="row  mar-bot-10">
-                <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 pull-right">
-                    <button class="btn btn-primary btn-block" ng-click="addClue()">ADD!</button>
+        <div class="row">
+            <div class="col-lg-offset-2 col-lg-8 col-md-offset-2 col-md-8 col-xs-8 col-sm-8"><h2>Clues Management</h2></div>
+            <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 pull-right">
+                    <!--<button class="btn btn-primary btn-block" >ADD!</button>-->
+                    <a class="add-clue-button" ng-click="addClue()">
+                        <i class="fa fa-plus"></i>    
+                    </a>
                 </div>
-            </div>
+                </div>
+        <div class="panel-body">
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" ng-repeat="clue in clues">
                     <div class="clue-box">
@@ -16,7 +19,8 @@
                                 <div class="col-lg-4 col-lg-offset-4 col-md-3 col-md-offset-3 col-sm-3 col-xs-3">
                                     <h6>Clue{{$index+1}}</h6>
                                 </div>
-                                <div class="pull-right col-lg-3 col-md-3 col-sm-3 col-xs-3 pad-top-5">
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pad-top-5">
+                                    <spinner class="clue-spinner" spinner-hidden="false"></spinner>
                                     <i  ng-show="!clue.isEditable" class="fa fa-edit fa-2x" ng-click="editClue(clue)"></i>
                                     <i  ng-show="clue.isEditable" class="fa fa-save fa-2x" ng-click="saveClue(clue)"></i>
                                     <i class="fa fa-times fa-2x" ng-click="removeClue(clue)"></i>
@@ -25,22 +29,37 @@
                         </div>
                         <div class="clue-details">
                             <div class="row form-group">
-                                <div class="col-lg-5 col-md-3 col-xs-12 col-sm-12">
+                                <label class="col-lg-5 col-md-3 col-xs-12 col-sm-12 control-label">
                                 Map Image
-                                </div>
+                                </label>
                                 <div class="col-lg-5">
-                                    
-                                <a class="clue-form-element" ng-hide="clue.isEditable" ng-bind="clue.map_img" ng-href="{{clue.map_img}}"></a>
-                                <input class="clue-form-element"  accept="image/gif, image/jpeg" file-handler="clue.map_img" type="file" ng-show="clue.isEditable"  />
+                                    <div class="hover_img">
+                                    <a class="clue-form-element" ng-hide="clue.isEditable" >
+                                        <span ng-bind="clue.map_img"></span>
+                                        <span class="thumbnail-holder">
+                                            <img ng-src="{{clue.map_path}}" alt="image" height="100" />
+                                        </span>
+                                    </a>
+                                </div>
+                                </a>
+                                <input class="clue-form-element form-control"  accept="image/gif, image/jpeg" file-handler="clue.map_img" type="file" ng-show="clue.isEditable"  />
                                 </div>
                             </div>
                             <div class="row  form-group">
-                                <div class="col-lg-5 col-md-3 col-xs-12 col-sm-12">
+                                <label class="col-lg-5 col-md-3 col-xs-12 col-sm-12 control-label">
                                 Clue Image
-                                </div>
+                                </label>
                                 <div class="col-lg-5">
-                                <a class="clue-form-element" ng-hide="clue.isEditable" ng-bind="clue.clue_img" ng-href="{{clue.clue_img}}"></a>
-                                <input class="clue-form-element" accept="image/gif, image/jpeg" file-handler="clue.clue_img" type="file" ng-show="clue.isEditable" />
+                                
+                                <div class="hover_img">
+                                    <a class="clue-form-element" ng-hide="clue.isEditable" >
+                                        <span ng-bind="clue.clue_img"></span>
+                                        <span class="thumbnail-holder">
+                                            <img ng-src="{{clue.clue_path}}" alt="image" height="100" />
+                                        </span>
+                                    </a>
+                                </div>
+                                <input class="clue-form-element form-control" accept="image/gif, image/jpeg" file-handler="clue.clue_img" type="file" ng-show="clue.isEditable" />
                                 </div>
                             </div>
                             <div class="row  form-group">

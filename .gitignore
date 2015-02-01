@@ -65,3 +65,5 @@ $RECYCLE.BIN/
 *.msm
 *.msp
 .c9
+public/images/clues/*
+public/images/maps/*

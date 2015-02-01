@@ -14,7 +14,7 @@ router.post('/',function(req,res,next){
     var fullClueSourcePath=path.join('./uploads',req.files.clue_img.name);
     var fullMapSourcePath=path.join('./uploads',req.files.map_img.name);
     var fullClueDestPath=path.join('./public','images/clues',req.files.clue_img.name);
-    var fullMapDestPath=path.join('./public','images/maps',req.files.clue_img.name);
+    var fullMapDestPath=path.join('./public','images/maps',req.files.map_img.name);
     copyFile(fullClueSourcePath,fullClueDestPath,function(){
         winston.debug('CLue was copied from '+fullClueSourcePath +' to '+fullClueDestPath);
     });
@@ -38,7 +38,19 @@ router.post('/',function(req,res,next){
 });
 router.get('/',function(req,res,next){
     clueModel.find({}).sort('order').exec(function(error,data){
-        res.status(200).send(data);
+        var clueDestPath='images/clues';
+        var mapDestPath='images/maps';
+        var response=[];
+        response=data.map(function(elem){
+            var newElem={};
+            newElem.clue_path=path.join(clueDestPath,elem.clue_img);
+            newElem.map_path=path.join(mapDestPath,elem.map_img);
+            newElem.order=elem.order;
+            newElem.clue_img=elem.clue_img 
+            newElem.map_img=elem.map_img
+            return newElem;
+        },response);
+        res.status(200).send(response);
     })
 })
 

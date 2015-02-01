@@ -5,6 +5,7 @@
             $scope.clues=angular.forEach(clues,function(clue){
                 var newClue = angular.copy(clue);
                 newClue.isEditable=false;
+                newClue.passcode=clue.passCode;
                 return newClue;
                 
             });
@@ -12,6 +13,9 @@
         var saveSucesss=function(data){
             delete this.clue.isNew;
             this.clue.isEditable=false;
+            this.clue.map_img=this.clue.map_img.name;
+            this.clue.clue_img=this.clue.clue_img.name;
+            console.log('File structure'+angular.toJson(this.clue.map_img));
             console.log('File upload complete');
         }
         function init(){

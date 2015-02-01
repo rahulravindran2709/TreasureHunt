@@ -450,14 +450,34 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffa84c', end
 
 
 /*Admin page clues styles*/
+.add-clue-button{
+	width:50px;
+	height:50px;
+	background-color:#ff7b0d;
+	position: relative;
+	border-radius:25px;
+	margin-top: 23px;
+	cursor: pointer;
+	display:block;
+	transition:all 200ms ease;
+	-webkit-transition:all 200ms ease;	
+}
+.add-clue-button:hover{
+	transform:scale(1.1) rotate(180deg);
+	-webkit-transform:scale(1.1) rotate(180deg);
+}
+.add-clue-button i{
+	color:#fff;
+	margin-top:19px;
+}
 .clue-box{
 	box-sizing:border-box;
 	-webkit-box-sizing:border-box;
 	-moz-box-sizing:border-box;
 	border:1px solid #666;
-	-webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
-	-moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
-	box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+	box-shadow: 6px 6px 6px 0px rgba(0,0,0,0.75);
+	-webkit-box-shadow: 6px 6px 5px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: 6px 6px 5px 0px rgba(0,0,0,0.75);
 	font-family:Helvetica;
 	margin-bottom:20px;
 	float: left;
@@ -477,6 +497,16 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffa84c', end
 .clue-box > .header  h6{
 	color:#fff;
 }
+.clue-spinner{position:absolute;top:97px;right:187px;color:#000;}
+.hover_img a { position:relative; }
+.hover_img a span.thumbnail-holder { position:absolute;
+display:none;
+z-index:99;
+border:1px solid #666;
+border-radius:5px;box-shadow:3px 3px 3px #666;
+-webkit-box-shdaow:3px 3px 3px #666;
+-moz-box-shadow:3px 3px 3px #666;}
+.hover_img a:hover span.thumbnail-holder { display:block; }
 /*Admin page clues styles end*/
 
 @media (max-width: 767px) {

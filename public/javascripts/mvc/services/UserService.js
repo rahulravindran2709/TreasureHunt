@@ -8,11 +8,12 @@
 window.angular.module('TreasureHunt').service('UserService',['$http','$q','apiURLConstants',function($http,$q,apiURLConstants){
     this.getUsers = function(){
         
-        var users = [{userName:'Rahul',teamName:'Bucanneers',approvalStatus:'Pending'},
-            {userName:'Bimal',teamName:'Gays',approvalStatus:'Pending'},
-            {userName:'Manish',teamName:'Pirates',approvalStatus:'Pending'}];
         var deferred=$q.defer();
-        deferred.resolve(users);
+        $http.get(apiURLConstants.GET_ALL_USERS_URL).then(
+            function(response){
+                deferred.resolve(response.data);
+            }
+            );
        return deferred.promise;
     };
     this.updateUser = function(userDetails){

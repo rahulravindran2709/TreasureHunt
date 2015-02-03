@@ -14,8 +14,12 @@ prettyPrint: true,
 depth:3 });
 /* GET users listing. */
 router.get('/', function(req, res) {
-  userModel.find(function(err,data){
-     res.send(data);
+  userModel.find().populate('team','teamName').exec(function(err,data){
+    var response =data.map(function(elem,index,input){
+      input[index].teamName=elem.team.teamName;
+      return input[index];
+    });
+     res.send(response);
   })
  
 });

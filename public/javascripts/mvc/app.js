@@ -1,5 +1,6 @@
 var app=angular.module('TreasureHunt',['ngRoute','ngAnimate','angularSimpleAuth','angular-chartist','UniqueFieldValidatorModule','AnimationModule','scrollerModule']);
 app.constant('faye',Faye);
+app.constant('roles',{ROLE_ADMIN:'admin',ROLE_PLAYER:'player'});
 app.constant('routeConstants',{
   LANDING_URL:'/',
   GAME_URL:'/game',
@@ -41,7 +42,14 @@ app.config(['$routeProvider','$locationProvider','routeConstants',
       })
       .when(routeConstants.ADMIN_CLUES_URL,{
         templateUrl: 'partials/admin-clues.tmpl.html',
-        controller: 'AdminCluesController'
+        controller: 'AdminCluesController',
+        resolve:['roles','AuthorizationService',function(roles,authorizationService){
+          return authorizationService.checkUserPermissions(roles.ROLE_ADMIN);
+        }]
+      })
+      .when(routeConstants.ADMIN_LANDING_URL,{
+        templateUrl: 'partials/admin-page.tmpl.html',
+        controller: 'AdminController'
       })
       .otherwise({
         redirectTo: routeConstants.LANDING_URL

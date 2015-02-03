@@ -1,8 +1,10 @@
+
+(function(angular){
 /**
  * @name AdminController
  * @desc This serves as the controller for the admin landing page
  */
-window.angular.module('TreasureHunt').controller('AdminController',['$scope','UserService','TeamService','$timeout',function($scope,userService,teamService,$timeout){
+angular.module('TreasureHunt').controller('AdminController',['$scope','UserService','TeamService','$timeout',function($scope,userService,teamService,$timeout){
     $scope.isHidden=true;
     /**
    * @name init
@@ -60,8 +62,8 @@ window.angular.module('TreasureHunt').controller('AdminController',['$scope','Us
        */
     function switchView(userDetails){
         userDetails.isSpinnerHidden=true;
-        showNotification('You have successfully assigned '+userDetails.userName+' to team '+userDetails.teamName);
-        $timeout(hideNotification,1500,true);
+        showNotification('You have successfully assigned '+userDetails.fullName+' to team '+userDetails.team.teamName);
+       /* $timeout(hideNotification,1500,true);*/
         if(userDetails.approvalStatus=="Pending")
         {
         userDetails.approvalStatus="Approved";
@@ -73,7 +75,10 @@ window.angular.module('TreasureHunt').controller('AdminController',['$scope','Us
        * and toggles on/off the toast notification
        */
     function populateTeamList(teamList){
-        $scope.teamList=teamList;
+        $scope.teamList=[];
+        angular.forEach(teamList,function(elem){
+            this.push(elem.teamName);
+        },$scope.teamList);
     }
     /**
        * @name populateUserList
@@ -90,3 +95,5 @@ window.angular.module('TreasureHunt').controller('AdminController',['$scope','Us
         }
     
 }])
+
+})(window.angular);

@@ -287,7 +287,8 @@
         var getCurrentUserLocal=function(){
             return {
                 username:username,
-                data:currentUserData
+                data:currentUserData,
+                roles:roles
             }
         }
         return {
@@ -310,6 +311,36 @@
             
             
         }
+    }])
+    /*
+     * @name AuthorizationService
+     * @desc This service will handle all functionality related to
+     * roles based authorization of angular routes
+     * 
+     * 
+     */ 
+    .service('AuthorizationService',['$q','Credentials',function($q,credentials){
+        var checkUserPermissionsLocal = function(role){
+            var deferred = $q.defer();
+            if(!role|| role.length<=0){
+                deferred.reject('No role passed');
+            }
+            var currentUser = credentials.getCurrentUser();
+            if(!currentUser || !currentUser.data)
+            {
+                 deferred.reject('No user logged in');
+            }
+            if(!currentUser.roles)
+            {
+                deferred.reject('User doesnt have roles')
+            }
+            if(currentUser.roles.indexOf(role)==-1)
+            {
+                deferred.reject('User is not authorized');
+            }
+            
+        }
+        this.checkUserPermissions=checkUserPermissionsLocal;
     }])
     /**
      * @name TokenAuthInterceptor

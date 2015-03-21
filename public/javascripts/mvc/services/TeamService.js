@@ -29,7 +29,7 @@ window.angular.module('TreasureHunt').service('TeamService',['$http','$q','apiUR
        return deferred.promise;
     };
     this.getClueForTeam=function(teamName){
-        return $http.get('/api/team'+teamName+'/game')
+        return $http.get(apiURLConstants.GET_ALL_TEAMS_URL+teamName+apiURLConstants.TEAMS_CLUE_SUFFIX)
     }
     /**
      * @name getSolvedClues

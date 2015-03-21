@@ -37,12 +37,15 @@ router.get('/:id/show',function(req,res){
       }
       //data.teamName=data.team.teamName;
      // data.team={};
+     winston.debug('Role'+data.role)
      var user=
      {
     fullName: data.fullName,
     approvalStatus: data.approvalStatus,
     email: data.email,
-    teamName: data.team.teamName};
+    teamName: data.team.teamName,
+    role:data.role   
+     };
       winston.debug('Request for user details of id'+JSON.stringify(data));
       res.send(user);
     })
@@ -161,7 +164,14 @@ router.post('/',function(req,res){
           return;
         }
         winston.debug('Name of team'+resp._id);
-        var newUserWithNewTeam = new userModel({fullName:user.fullName,approvalStatus:'Pending',password:user.password,phone:user.phone,email:user.email,team:resp._id});
+        var newUserWithNewTeam = new userModel({fullName:user.fullName,
+        approvalStatus:'Pending',
+        password:user.password,
+        phone:user.phone,
+        email:user.email,
+        team:resp._id,
+        role:'Player'
+        });
         newUserWithNewTeam.save(function(err,data){
            if(err)
         {
@@ -183,7 +193,14 @@ router.post('/',function(req,res){
     else
     {
       winston.log('Team was found'+data[0]._id);
-       var newUserWithExistingTeam = new userModel({fullName:user.fullName,approvalStatus:'Pending',email:user.email,password:user.password,team:data[0]._id});
+       var newUserWithExistingTeam = new userModel({fullName:user.fullName,
+       approvalStatus:'Pending',
+       email:user.email,
+       password:user.password,
+       phone:user.phone,
+       team:data[0]._id,
+       role:'Player' 
+       });
        newUserWithExistingTeam.save(function(err,data){
          if(err)
         {

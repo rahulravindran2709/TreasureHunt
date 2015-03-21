@@ -32,8 +32,8 @@
         var authSucessCallback=function(data){
             $window.sessionStorage.setItem('token',data.data.token);
             credentials.setUsername($scope.credentials.username);
-            authService.getUserDetailsByUsername($scope.credentials.username,'UserService').then(function(data){
-                 credentials.setCurrentUserData(data.data);
+            authService.getUserDetailsByUsername($scope.credentials.username,'UserService').then(function(response){
+                 credentials.setCurrentUserData(response.data);
                  $window.sessionStorage.setItem('currentUser',angular.toJson(credentials.getCurrentUser()));
                  $rootScope.$broadcast(authEvents.AUTH_SUCCESS);
                  $location.path('/');
@@ -282,7 +282,10 @@
             username=usernameParam;
         }
         var setCurrentUserDataLocal=function(data){
+            console.log('Credentials being set'+angular.toJson(data));
             currentUserData=data;
+            console.log('Value of role being set'+data.role);
+            roles.push(data.role);
         }
         var getCurrentUserLocal=function(){
             return {
@@ -321,6 +324,7 @@
      */ 
     .service('AuthorizationService',['$q','Credentials',function($q,credentials){
         var checkUserPermissionsLocal = function(role){
+            console.log('In check permission');
             var deferred = $q.defer();
             if(!role|| role.length<=0){
                 deferred.reject('No role passed');
@@ -328,17 +332,22 @@
             var currentUser = credentials.getCurrentUser();
             if(!currentUser || !currentUser.data)
             {
+                console.log('No user logged in');
                  deferred.reject('No user logged in');
             }
             if(!currentUser.roles)
             {
+                console.log('User not roles');
                 deferred.reject('User doesnt have roles')
             }
+            console.log('Role got'+currentUser.roles);
             if(currentUser.roles.indexOf(role)==-1)
             {
+                 console.log('User not authorized');
                 deferred.reject('User is not authorized');
             }
-            
+            deferred.resolve('Authorized');
+            return deferred.promise;
         }
         this.checkUserPermissions=checkUserPermissionsLocal;
     }])

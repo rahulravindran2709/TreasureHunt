@@ -43,13 +43,18 @@ app.config(['$routeProvider','$locationProvider','routeConstants',
       .when(routeConstants.ADMIN_CLUES_URL,{
         templateUrl: 'partials/admin-clues.tmpl.html',
         controller: 'AdminCluesController',
-        resolve:['roles','AuthorizationService',function(roles,authorizationService){
-          return authorizationService.checkUserPermissions(roles.ROLE_ADMIN);
+        resolve:['roles','AuthorizationService',function(roles,AuthorizationService){
+          console.log('In resolve');
+          return AuthorizationService.checkUserPermissions(roles.ROLE_ADMIN);
         }]
       })
       .when(routeConstants.ADMIN_LANDING_URL,{
         templateUrl: 'partials/admin-page.tmpl.html',
-        controller: 'AdminController'
+        controller: 'AdminController',
+        resolve:{app:['roles','AuthorizationService',function(roles,AuthorizationService){
+          console.log('In resolve');
+          return AuthorizationService.checkUserPermissions(roles.ROLE_ADMIN);
+        }]}
       })
       .otherwise({
         redirectTo: routeConstants.LANDING_URL

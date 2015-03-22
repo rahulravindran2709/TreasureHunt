@@ -148,6 +148,35 @@
             }
         };
 	})
+	/**
+     * @name simpleAuthRole
+     * @desc The  directive which secures a block of markup for authorized uses of a specific role
+     * @params Pass the role name as the attribute value of the directive itself
+     * 
+     */ 
+	.directive('simpleAuthRole',['Credentials',function(credentials){
+	    console.log('Value of role directive');
+	    var linkFn= function(scope,elem,attrs){
+	        console.log('Value of role'+scope.role);
+	        var currentUser=credentials.getCurrentUser();
+	        console.log('Current user roles in link'+currentUser.roles);
+	        if(currentUser.roles.indexOf(scope.role)!=-1){
+	            scope.isAuthorized=true;
+	        }
+	    }
+	    var directiveDefObj={
+	        restrict:'E',
+	        transclude:true,
+	        scope:{role:'@'},
+	        replace:true,
+	        template:'<div ng-if="isAuthorized" ng-transclude></div>',
+	        link:linkFn
+	    };
+	    
+	    
+	    
+	    return directiveDefObj;
+	}])
 	.controller('LogoutController',['authEvents','$rootScope','$location','AuthService',function(authEvents,$rootScope,$location,authService){
 	    this.initiateLogout=function(){
 	        authService.logout().then(function(){

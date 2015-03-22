@@ -34,9 +34,16 @@
             <simple-auth-secured>
             <div ng-cloak class="navbar-collapse navbar-inverse-collapse">
                 <ul class="nav navbar-nav">
+                    <simple-auth-role role="admin">
                     <li class="active nav-item"><a href="#team-content"><span class="visible-xs-inline"><i class="fa fa-users"></i></span><span class="hidden-xs">Team</span></a> </li>
                     <li class="nav-item"><a href="#/game"><span class="visible-xs-inline"><i class="fa fa-search"></i></span><span class="hidden-xs">Game</span></a> </li>
                     <li class="nav-item"><a href="#/leaderboard"><span class="visible-xs-inline"><i class="fa fa-bar-chart-o"></i></span><span class="hidden-xs">LeaderBoard</span></a> </li>
+                    </simple-auth-role>
+                    <simple-auth-role role="admin">
+                    <li class="active nav-item"><a href="#team-content"><span class="visible-xs-inline"><i class="fa fa-users"></i></span><span class="hidden-xs">Team</span></a> </li>
+                    <li class="nav-item"><a href="#/game"><span class="visible-xs-inline"><i class="fa fa-search"></i></span><span class="hidden-xs">Game</span></a> </li>
+                    <li class="nav-item"><a href="#/leaderboard"><span class="visible-xs-inline"><i class="fa fa-bar-chart-o"></i></span><span class="hidden-xs">LeaderBoard</span></a> </li>
+                    </simple-auth-role>
                 </ul>
                 <ul  class="nav navbar-nav navbar-right">
                     <li class="dropdown">
